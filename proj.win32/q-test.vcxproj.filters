@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{ca496d0d-4b94-4361-88c5-3cad14311fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\meta">
+      <UniqueIdentifier>{5bfb223e-f0ce-4bea-b77d-c04b09453984}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\dialog.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\ListWidget.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\mainwindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\meta\moc_dialog.cpp">
+      <Filter>UI\meta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\meta\moc_ListWidget.cpp">
+      <Filter>UI\meta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\meta\moc_mainwindow.cpp">
+      <Filter>UI\meta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\meta\qrc_editor.cpp">
+      <Filter>UI\meta</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\Cocos2dxView.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UI\meta\moc_Cocos2dxView.cpp">
+      <Filter>UI\meta</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\dialog.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\ListWidget.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\mainwindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\ui_dialog.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\ui_mainwindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\Cocos2dxView.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
