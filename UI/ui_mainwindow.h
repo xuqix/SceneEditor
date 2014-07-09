@@ -47,6 +47,7 @@ public:
     QAction *actionAdd_Sprites;
     QAction *actionAbout;
     QAction *actionDelete_Sprite;
+    QAction *actionSet_Background;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_10;
     QVBoxLayout *verticalLayout;
@@ -59,8 +60,9 @@ public:
     QToolButton *toolButtonCircle;
     QToolButton *toolButtonPolygon;
     QToolButton *toolButtonPaint;
-    QToolButton *toolButtonDelete;
     QToolButton *toolButtonChoice;
+    QToolButton *toolButtonDelete;
+    QToolButton *toolButtonUndo;
     QLabel *label_3;
     QLabel *label_4;
     QSpinBox *sizeX;
@@ -117,6 +119,8 @@ public:
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         actionDelete_Sprite = new QAction(MainWindow);
         actionDelete_Sprite->setObjectName(QStringLiteral("actionDelete_Sprite"));
+        actionSet_Background = new QAction(MainWindow);
+        actionSet_Background->setObjectName(QStringLiteral("actionSet_Background"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_10 = new QHBoxLayout(centralWidget);
@@ -168,7 +172,7 @@ public:
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         sizePolicy.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
         groupBox_3->setSizePolicy(sizePolicy);
-        groupBox_3->setMaximumSize(QSize(240, 60));
+        groupBox_3->setMaximumSize(QSize(200, 60));
         groupBox_3->setBaseSize(QSize(0, 0));
         groupBox_3->setFlat(true);
         horizontalLayout = new QHBoxLayout(groupBox_3);
@@ -223,20 +227,6 @@ public:
 
         horizontalLayout->addWidget(toolButtonPaint);
 
-        toolButtonDelete = new QToolButton(groupBox_3);
-        toolButtonDelete->setObjectName(QStringLiteral("toolButtonDelete"));
-        sizePolicy2.setHeightForWidth(toolButtonDelete->sizePolicy().hasHeightForWidth());
-        toolButtonDelete->setSizePolicy(sizePolicy2);
-        toolButtonDelete->setCursor(QCursor(Qt::PointingHandCursor));
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/images/delete.png"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButtonDelete->setIcon(icon4);
-        toolButtonDelete->setIconSize(QSize(48, 48));
-        toolButtonDelete->setCheckable(true);
-        toolButtonDelete->setAutoExclusive(true);
-
-        horizontalLayout->addWidget(toolButtonDelete);
-
         toolButtonChoice = new QToolButton(groupBox_3);
         toolButtonChoice->setObjectName(QStringLiteral("toolButtonChoice"));
         QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -246,9 +236,9 @@ public:
         toolButtonChoice->setSizePolicy(sizePolicy3);
         toolButtonChoice->setMinimumSize(QSize(0, 0));
         toolButtonChoice->setCursor(QCursor(Qt::PointingHandCursor));
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/images/choice.png"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButtonChoice->setIcon(icon5);
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/images/choice.png"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButtonChoice->setIcon(icon4);
         toolButtonChoice->setIconSize(QSize(32, 32));
         toolButtonChoice->setCheckable(true);
         toolButtonChoice->setAutoExclusive(true);
@@ -257,6 +247,32 @@ public:
 
 
         horizontalLayout_2->addWidget(groupBox_3);
+
+        toolButtonDelete = new QToolButton(centralWidget);
+        toolButtonDelete->setObjectName(QStringLiteral("toolButtonDelete"));
+        sizePolicy2.setHeightForWidth(toolButtonDelete->sizePolicy().hasHeightForWidth());
+        toolButtonDelete->setSizePolicy(sizePolicy2);
+        toolButtonDelete->setCursor(QCursor(Qt::PointingHandCursor));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/images/delete.png"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButtonDelete->setIcon(icon5);
+        toolButtonDelete->setIconSize(QSize(38, 38));
+        toolButtonDelete->setCheckable(false);
+        toolButtonDelete->setAutoExclusive(false);
+
+        horizontalLayout_2->addWidget(toolButtonDelete);
+
+        toolButtonUndo = new QToolButton(centralWidget);
+        toolButtonUndo->setObjectName(QStringLiteral("toolButtonUndo"));
+        toolButtonUndo->setCursor(QCursor(Qt::PointingHandCursor));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/undo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButtonUndo->setIcon(icon6);
+        toolButtonUndo->setIconSize(QSize(38, 38));
+        toolButtonUndo->setCheckable(false);
+        toolButtonUndo->setAutoExclusive(false);
+
+        horizontalLayout_2->addWidget(toolButtonUndo);
 
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -293,7 +309,7 @@ public:
         horizontalLayout_2->addWidget(sizeY);
 
         horizontalLayout_2->setStretch(0, 5);
-        horizontalLayout_2->setStretch(1, 2);
+        horizontalLayout_2->setStretch(3, 2);
 
         verticalLayout_3->addLayout(horizontalLayout_2);
 
@@ -406,6 +422,8 @@ public:
         menuFile->addAction(actionPublic_As);
         menuE_dit->addAction(actionAdd_Sprites);
         menuE_dit->addAction(actionDelete_Sprite);
+        menuE_dit->addSeparator();
+        menuE_dit->addAction(actionSet_Background);
         menuHelp->addAction(actionAbout);
 
         retranslateUi(MainWindow);
@@ -449,6 +467,10 @@ public:
 #endif // QT_NO_STATUSTIP
         actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
         actionDelete_Sprite->setText(QApplication::translate("MainWindow", "Delete Sprite", 0));
+        actionSet_Background->setText(QApplication::translate("MainWindow", "Set Background", 0));
+#ifndef QT_NO_STATUSTIP
+        actionSet_Background->setStatusTip(QApplication::translate("MainWindow", "\350\256\276\347\275\256\345\234\272\346\231\257\347\232\204\350\203\214\346\231\257", 0));
+#endif // QT_NO_STATUSTIP
 #ifndef QT_NO_STATUSTIP
         lineEdit->setStatusTip(QApplication::translate("MainWindow", "\345\234\250\345\210\227\350\241\250\344\270\255\346\220\234\347\264\242\346\214\207\345\256\232\347\232\204\347\262\276\347\201\265\347\261\273\345\236\213", 0));
 #endif // QT_NO_STATUSTIP
@@ -475,6 +497,13 @@ public:
 #endif // QT_NO_STATUSTIP
         toolButtonPaint->setText(QApplication::translate("MainWindow", "...", 0));
 #ifndef QT_NO_TOOLTIP
+        toolButtonChoice->setToolTip(QApplication::translate("MainWindow", "\351\200\211\345\217\226\347\262\276\347\201\265", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        toolButtonChoice->setStatusTip(QApplication::translate("MainWindow", "\345\257\271\345\234\272\346\231\257\344\270\255\351\200\211\344\270\255\347\232\204\347\262\276\347\201\265\350\277\233\350\241\214\346\213\226\346\213\275\343\200\201\350\260\203\346\225\264\347\255\211\346\223\215\344\275\234", 0));
+#endif // QT_NO_STATUSTIP
+        toolButtonChoice->setText(QApplication::translate("MainWindow", "...", 0));
+#ifndef QT_NO_TOOLTIP
         toolButtonDelete->setToolTip(QApplication::translate("MainWindow", "\345\210\240\351\231\244", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_STATUSTIP
@@ -482,12 +511,12 @@ public:
 #endif // QT_NO_STATUSTIP
         toolButtonDelete->setText(QApplication::translate("MainWindow", "...", 0));
 #ifndef QT_NO_TOOLTIP
-        toolButtonChoice->setToolTip(QApplication::translate("MainWindow", "\351\200\211\345\217\226\347\262\276\347\201\265", 0));
+        toolButtonUndo->setToolTip(QApplication::translate("MainWindow", "\346\222\244\351\224\200", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_STATUSTIP
-        toolButtonChoice->setStatusTip(QApplication::translate("MainWindow", "\345\257\271\345\234\272\346\231\257\344\270\255\351\200\211\344\270\255\347\232\204\347\262\276\347\201\265\350\277\233\350\241\214\346\213\226\346\213\275\343\200\201\350\260\203\346\225\264\347\255\211\346\223\215\344\275\234", 0));
+        toolButtonUndo->setStatusTip(QApplication::translate("MainWindow", "\346\222\244\351\224\200\344\270\212\344\270\200\346\254\241\347\274\226\350\276\221\346\223\215\344\275\234", 0));
 #endif // QT_NO_STATUSTIP
-        toolButtonChoice->setText(QApplication::translate("MainWindow", "...", 0));
+        toolButtonUndo->setText(QApplication::translate("MainWindow", "...", 0));
         label_3->setText(QApplication::translate("MainWindow", "\345\210\206\350\276\250\347\216\207\350\256\276\347\275\256:", 0));
         label_4->setText(QApplication::translate("MainWindow", "X", 0));
         label_5->setText(QApplication::translate("MainWindow", "Y", 0));

@@ -5,6 +5,7 @@
 #include <QtWidgets/QMenu>
 #include <QtGui/QtEvents>
 #include <QtCore/QMimeData>
+#include <QtCore/QFileInfo>
 #include <QtWidgets/QListWidget>
 #include "mainwindow.h"
 #include "dialog.h"
@@ -14,11 +15,12 @@ class ListWidgetItem : public QListWidgetItem
 {
 public:
     ListWidgetItem() {}
-    ListWidgetItem(QString file_name) { filename = file_name; }
-    QString getFileName() { return filename; }
+    ListWidgetItem(QFileInfo &fileinfo) { file_info = fileinfo; }
+    QString getFileName() { return file_info.fileName(); }
+	QString getAbsoluteFilePath() { return file_info.absoluteFilePath(); }
 private:
-	//列表项图片名
-    QString filename;
+	//列表项图片文件信息
+	QFileInfo file_info;
 };
 
 //图片选择列表

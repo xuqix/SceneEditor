@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->scrollArea->setWidgetResizable(false);
 	ui->scrollArea->takeWidget();
 	ui->scrollArea->setAlignment(Qt::AlignCenter);
+	ui->radioButtonBrowse->setChecked(true);
 
 	//设置背景色
 	QPalette pal; 
@@ -26,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->toolButtonPaint, SIGNAL(clicked()), this, SLOT(commonEdit()) );
     connect(ui->toolButtonDelete, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui->toolButtonChoice, SIGNAL(clicked()), this, SLOT(choiceEdit()));
+	connect(ui->toolButtonUndo, SIGNAL(clicked()), this, SLOT(undoEdit()));
 
     connect(ui->radioButtonBrowse, SIGNAL(clicked()), this, SLOT(enterBrowseMode()));
     connect(ui->radioButtonEdit, SIGNAL(clicked()), this, SLOT(enterEditMode()));
@@ -38,8 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->scrollArea->setWidget(cocos2dx_view);
 
 
-    QListWidgetItem *item1;
-    item1 = new QListWidgetItem;
+	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
+	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
+    ListWidgetItem *item1;
+    item1 = new ListWidgetItem(info);
 
 	//test
     item1->setIcon(QIcon(":/images/change.png"));
@@ -73,10 +77,14 @@ void MainWindow::createActions()
     ui->actionDelete_Sprite->setIcon(QIcon(":/images/trash.png"));
     connect(ui->actionDelete_Sprite, SIGNAL(triggered()), ui->listWidget, SLOT(delSelectedSprite()));
 
+    ui->actionSet_Background->setIcon(QIcon(":/images/setbk.png"));
+    connect(ui->actionSet_Background, SIGNAL(triggered()), this, SLOT(setSceneBackground()));
+
     connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(save()));
     connect(ui->actionPublic, SIGNAL(triggered()), this, SLOT(publicData()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
+
 
 void MainWindow::createMenus()
 {
@@ -90,6 +98,7 @@ void MainWindow::createToolBars()
     ui->mainToolBar->addAction(ui->actionPublic_As);
 
     ui->mainToolBar->addAction(ui->actionAdd_Sprites);
+	ui->mainToolBar->addAction(ui->actionSet_Background);
 }
 
 void MainWindow::createStatusBar()
@@ -144,10 +153,23 @@ bool MainWindow::publicDataAs()
     return true;
 }
 
+void MainWindow::setSceneBackground()
+{
+	qDebug("setbk");
+    QString filename =  QFileDialog::getOpenFileName(this, QStringLiteral("设置场景背景"), QString(),
+                                                      "Images (*.png *.jpg)");
+
+    qDebug("%s", filename.toLatin1().data());
+    if(!filename.isEmpty())
+    {
+		qDebug("ok");
+    }
+}
+
 bool MainWindow::addSprites()
 {
     qDebug("press");
-    QStringList list =  QFileDialog::getOpenFileNames(this, "添加关卡元素", QString(),
+    QStringList list =  QFileDialog::getOpenFileNames(this, QStringLiteral("添加关卡元素"), QString(),
                                                       "Images (*.bmp *.tiff *.gif *.png *.jpg)");
     qDebug("%d", list.length());
     if(list.length() > 0)
@@ -205,6 +227,11 @@ void MainWindow::deleteSelected()
 void MainWindow::choiceEdit()
 {
 	qDebug("select");
+}
+
+void MainWindow::undoEdit()
+{
+	qDebug("undo");
 }
 
 void MainWindow::enterBrowseMode()

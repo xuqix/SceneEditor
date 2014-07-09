@@ -34,6 +34,7 @@ private slots:
     bool publicData();
     bool publicDataAs();
     bool addSprites();
+	void setSceneBackground();
     void about();
 
 	//控件槽
@@ -54,6 +55,8 @@ private slots:
     void deleteSelected();
 	//选取精灵
 	void choiceEdit();
+	//撤销编辑
+	void undoEdit();
 
     //进入浏览模式和编辑模式
     void enterBrowseMode();

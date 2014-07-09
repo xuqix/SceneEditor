@@ -24,6 +24,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 #include "../Classes/AppDelegate.h"
 #include <QtWidgets\QApplication>
+#include <QtCore/QTextCodec>
 #include "UI/mainwindow.h"
 
 USING_NS_CC;
@@ -35,6 +36,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	//int main(int argc, char *argv[])
 {
 	Q_INIT_RESOURCE(editor);
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF8"));
+
 	int argc = 1; char **argv = NULL;
 	QApplication app(argc, argv);
 	app.setOrganizationName("QtProject");

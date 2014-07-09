@@ -1,5 +1,4 @@
 ﻿#include "ListWidget.h"
-#include <QtCore/QFileInfo>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QInputDialog>
 
@@ -52,7 +51,7 @@ bool ListWidget::addSpriteToList(QString path)
 //        return false;
     qDebug("%s", fileinfo.baseName().toLatin1().data() );
 
-    QListWidgetItem *item = new QListWidgetItem;
+    ListWidgetItem *item = new ListWidgetItem(fileinfo);
     item->setIcon(QIcon(path));
     item->setText(fileinfo.baseName());
 //      item1->setBackgroundColor(QColor(100,0,0));
@@ -80,19 +79,19 @@ void ListWidget::contextMenuEvent( QContextMenuEvent * event)
     QMenu *popMenu = new QMenu(this);
     if(itemAt(mapFromGlobal(QCursor::pos()))!=NULL)
     {
-        QAction *add = new QAction(QIcon(":/images/add.png"), "在场景中添加此精灵", this);
+        QAction *add = new QAction(QIcon(":/images/add.png"), QStringLiteral("在场景中添加此精灵"), this);
         connect(add, SIGNAL(triggered()), this, SLOT(addSpriteToScene()));
         popMenu->addAction(add);
 
-        QAction *setting = new QAction(QIcon(":/images/setting.png"), "设置精灵属性", this);
+        QAction *setting = new QAction(QIcon(":/images/setting.png"), QStringLiteral("设置精灵属性"), this);
         connect(setting, SIGNAL(triggered()), this, SLOT(setSpriteAttribute()));
         popMenu->addAction(setting);
 
-        QAction *change = new QAction(QIcon(":/images/change.png"), "修改精灵类型", this);
+        QAction *change = new QAction(QIcon(":/images/change.png"), QStringLiteral("修改精灵类型"), this);
         connect(change, SIGNAL(triggered()), this, SLOT(changeSpriteType()));
         popMenu->addAction(change);
 
-        QAction *del = new QAction(QIcon(":/images/trash.png"), "删除精灵", this);
+        QAction *del = new QAction(QIcon(":/images/trash.png"), QStringLiteral("删除精灵"), this);
         connect(del, SIGNAL(triggered()), this, SLOT(delSelectedSprite()));
         popMenu->addAction(del);
     }
@@ -108,7 +107,7 @@ void ListWidget::changeSpriteType()
 {
     bool ok;
     QListWidgetItem *item = this->currentItem();
-    QString name = QInputDialog::getText(this, "提示", "请输入新的精灵类型名:", QLineEdit::Normal, item->text(), &ok);
+    QString name = QInputDialog::getText(this, QStringLiteral("提示"), QStringLiteral("请输入新的精灵类型名:"), QLineEdit::Normal, item->text(), &ok);
     if(ok)
     {
         item->setText(name);
@@ -121,7 +120,7 @@ void ListWidget::delSelectedSprite()
     QListWidgetItem *item = this->currentItem();
     if(item == NULL)
         return;
-    int res = QMessageBox::question(this, "警告!","你确定要删除此项吗?",  QMessageBox::Yes, QMessageBox::No);
+    int res = QMessageBox::question(this, QStringLiteral("警告!"),QStringLiteral("你确定要删除此项吗?"),  QMessageBox::Yes, QMessageBox::No);
     if(res == QMessageBox::Yes)
     {
         this->takeItem(this->currentRow());
