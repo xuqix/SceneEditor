@@ -57,6 +57,12 @@
     <ClCompile Include="..\Classes\EditorScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CommonObject.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GridView.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -90,6 +96,24 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\EditorScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeState.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommonObject.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\Operation.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\OperatioManage.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GridView.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

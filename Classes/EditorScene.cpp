@@ -1,4 +1,5 @@
 #include "EditorScene.h"
+#include "GridView.h"
 
 USING_NS_CC;
 
@@ -11,7 +12,8 @@ CCScene* EditorScene::scene()
     EditorScene *layer = EditorScene::create();
 
     // add layer as a child to scene
-    scene->addChild(layer);
+	scene->addChild(layer); 
+	layer->setTag(view_tag);
 
     // return the scene
     return scene;
@@ -30,6 +32,7 @@ bool EditorScene::init()
         return false;
     }
 	this->setTouchEnabled(true);
+	m_gridview = NULL;
 
     m_background	= CCSprite::create("HelloWorld.png");
     m_background->setPosition(ccp(frameSize.width/2, frameSize.height/2));
@@ -42,19 +45,32 @@ bool EditorScene::init()
 
 bool EditorScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-	CCLOG("ssss");
 	CCPoint p = pTouch->getLocation();
-	CCLOG("%f %f", p.x, p.y);
+//	CCLOG("%f %f", p.x, p.y);
 	return true;
 }
 
 void EditorScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
 	CCPoint p = pTouch->getLocation();
-	CCLOG("%f %f", p.x, p.y);
+//	CCLOG("%f %f", p.x, p.y);
 }
 
 void EditorScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
 
+}
+
+void EditorScene::setGridView(bool isShow, int grid_gap)
+{
+	if (!m_gridview)
+	{
+		m_gridview = GridView::create();
+		this->addChild(m_gridview, 100);
+	}
+	m_gridview->setGridGap(grid_gap);
+	if (isShow)
+		m_gridview->setVisible(true);
+	else
+		m_gridview->setVisible(false);
 }

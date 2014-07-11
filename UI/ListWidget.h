@@ -7,7 +7,6 @@
 #include <QtCore/QMimeData>
 #include <QtCore/QFileInfo>
 #include <QtWidgets/QListWidget>
-#include "mainwindow.h"
 #include "dialog.h"
 
 //选择列表项

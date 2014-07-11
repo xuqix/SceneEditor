@@ -1,5 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "OperatioManage.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	this->setWindowTitle("MyEditor");
 
+	this->cocos2dx_view = new Cocos2dxView(this);
+	cocos2dx_view->setListWidget(ui->listWidget);
+	ui->scrollArea->setWidget(cocos2dx_view);
+
     connect(ui->lineEdit,SIGNAL(textChanged(QString)), ui->listWidget, SLOT(filter(QString)));
     connect(ui->rotateSpinBox, SIGNAL(valueChanged(double)), SLOT(rotateChange(double)));
     connect(ui->scaleSpinBox, SIGNAL(valueChanged(double)), SLOT(scaleChange(double)));
@@ -32,13 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->radioButtonBrowse, SIGNAL(clicked()), this, SLOT(enterBrowseMode()));
     connect(ui->radioButtonEdit, SIGNAL(clicked()), this, SLOT(enterEditMode()));
 
-	connect(ui->sizeX, SIGNAL(valueChanged(int)), SLOT(changeSizeX(int)));
-    connect(ui->sizeY, SIGNAL(valueChanged(int)), SLOT(changeSizeY(int)));
+	connect(ui->sizeX, SIGNAL(valueChanged(int)), this, SLOT(changeSizeX(int)));
+    connect(ui->sizeY, SIGNAL(valueChanged(int)), this, SLOT(changeSizeY(int)));
 
-	qDebug("%d", ui->sizeX->text().toInt());
-	this->cocos2dx_view = new Cocos2dxView(this);
-	ui->scrollArea->setWidget(cocos2dx_view);
-
+	connect(ui->checkBoxGrid, SIGNAL(clicked(bool)),this, SLOT(showGrid(bool)));
+    connect(ui->spinBoxGridNum, SIGNAL(valueChanged(int)), this, SLOT(gridNumChange(int)));
 
 	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
 	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
@@ -55,6 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
     createMenus();
     createToolBars();
     createStatusBar();
+
+	ui->radioButtonBrowse->clicked(true);
+//	ModeStateX->setPrimaryMode(ModeState::BrowseMode);
 }
 
 void MainWindow::createActions()
@@ -162,6 +168,7 @@ void MainWindow::setSceneBackground()
     qDebug("%s", filename.toLatin1().data());
     if(!filename.isEmpty())
     {
+		cocos2dx_view->setBackground(filename);
 		qDebug("ok");
     }
 }
@@ -206,17 +213,30 @@ void MainWindow::addSpriteToScene()
 
 void MainWindow::circleEdit()
 {
+	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
     qDebug("circle");
+	ModeStateX->setSubMode(ModeState::CircleEdit);
 }
 
 void MainWindow::polygonEdit()
 {
+	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
     qDebug("polygon");
+	ModeStateX->setSubMode(ModeState::PolygonEdit);
 }
 
 void MainWindow::commonEdit()
 {
+	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
     qDebug("common");
+	ModeStateX->setSubMode(ModeState::CommonEdit);
+}
+
+void MainWindow::choiceEdit()
+{
+	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
+	qDebug("select");
+	ModeStateX->setSubMode(ModeState::ChoiceEdit);
 }
 
 void MainWindow::deleteSelected()
@@ -224,24 +244,30 @@ void MainWindow::deleteSelected()
     qDebug("delete");
 }
 
-void MainWindow::choiceEdit()
-{
-	qDebug("select");
-}
-
 void MainWindow::undoEdit()
 {
 	qDebug("undo");
+	//int res = QMessageBox::question(this, QStringLiteral("警告!"),QStringLiteral("你确定要删除此项吗?"),  QMessageBox::Yes, QMessageBox::No);
+	//if (res == QMessageBox::Yes);
+	//撤销操作
+	if(!OperationManageX->undo())
+		QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("无法撤销!"));
 }
 
 void MainWindow::enterBrowseMode()
 {
+	cocos2dx_view->setCursor(Qt::OpenHandCursor);
     qDebug("browse");
+	ModeStateX->setPrimaryMode(ModeState::BrowseMode);
+	ModeStateX->setSubMode(ModeState::NoSubMode);
 }
 
 void MainWindow::enterEditMode()
 {
+	cocos2dx_view->setCursor(Qt::ArrowCursor);
     qDebug("edit");
+	ModeStateX->setPrimaryMode(ModeState::EditMode);
+	ui->toolButtonPaint->click();
 }
 
 void MainWindow::changeSizeX(int x)
@@ -268,4 +294,16 @@ void MainWindow::enterEvent(QEvent *e)
 void MainWindow::mouseMoveEvent(QMouseEvent *e)
 {
 	//qDebug("%d %d", e->pos().rx(), e->pos().ry());
+}
+
+void MainWindow::showGrid(bool show)
+{
+	int gap = ui->spinBoxGridNum->value();
+	cocos2dx_view->getEditorScene()->setGridView(show, gap);
+}
+
+void MainWindow::gridNumChange(int num)
+{
+	bool show = ui->checkBoxGrid->isChecked();
+	cocos2dx_view->getEditorScene()->setGridView(show, num);
 }

@@ -62,9 +62,12 @@ private slots:
     void enterBrowseMode();
     void enterEditMode();
 
+	void showGrid(bool show); 
+	void gridNumChange(int num); 
+	
 public slots:
     //在场景中添加精灵
-    void addSpriteToScene();
+	void addSpriteToScene();
 
 private:
     void createActions();

@@ -135,7 +135,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BaseObject.cpp" />
+    <ClCompile Include="..\Classes\CommonObject.cpp" />
     <ClCompile Include="..\Classes\EditorScene.cpp" />
+    <ClCompile Include="..\Classes\GridView.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\UI\Cocos2dxView.cpp" />
     <ClCompile Include="..\UI\dialog.cpp" />
@@ -151,15 +153,21 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BaseObject.h" />
+    <ClInclude Include="..\Classes\CommonObject.h" />
     <ClInclude Include="..\Classes\EditorScene.h" />
+    <ClInclude Include="..\Classes\GridView.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\UI\Cocos2dxView.h" />
     <ClInclude Include="..\UI\dialog.h" />
     <ClInclude Include="..\UI\ListWidget.h" />
     <ClInclude Include="..\UI\mainwindow.h" />
+    <ClInclude Include="..\UI\OperatioManage.h" />
+    <ClInclude Include="..\UI\Operation.h" />
     <ClInclude Include="..\UI\ui_dialog.h" />
     <ClInclude Include="..\UI\ui_mainwindow.h" />
+    <ClInclude Include="ModeState.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\cocos2dx\proj.win32\cocos2d.vcxproj">

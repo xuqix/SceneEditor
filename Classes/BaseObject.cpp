@@ -1,7 +1,6 @@
 #include "BaseObject.h"
 
 USING_NS_CC;
- 
 BaseObject::BaseObject(CCSprite *sprite)
 {
     m_sprite = NULL;

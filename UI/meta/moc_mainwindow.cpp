@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../TollgateEditor/mainwindow.h"
+#include "../mainwindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[28];
-    char stringdata[279];
+    QByteArrayData data[32];
+    char stringdata[311];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -56,7 +56,11 @@ QT_MOC_LITERAL(23, 212, 10),
 QT_MOC_LITERAL(24, 223, 8),
 QT_MOC_LITERAL(25, 232, 15),
 QT_MOC_LITERAL(26, 248, 13),
-QT_MOC_LITERAL(27, 262, 16)
+QT_MOC_LITERAL(27, 262, 8),
+QT_MOC_LITERAL(28, 271, 4),
+QT_MOC_LITERAL(29, 276, 13),
+QT_MOC_LITERAL(30, 290, 3),
+QT_MOC_LITERAL(31, 294, 16)
     },
     "MainWindow\0newFile\0\0open\0save\0saveAs\0"
     "publicData\0publicDataAs\0addSprites\0"
@@ -65,6 +69,7 @@ QT_MOC_LITERAL(27, 262, 16)
     "x\0changeSizeY\0y\0circleEdit\0polygonEdit\0"
     "commonEdit\0deleteSelected\0choiceEdit\0"
     "undoEdit\0enterBrowseMode\0enterEditMode\0"
+    "showGrid\0show\0gridNumChange\0num\0"
     "addSpriteToScene"
 };
 #undef QT_MOC_LITERAL
@@ -75,7 +80,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,28 +88,30 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  124,    2, 0x08 /* Private */,
-       3,    0,  125,    2, 0x08 /* Private */,
-       4,    0,  126,    2, 0x08 /* Private */,
-       5,    0,  127,    2, 0x08 /* Private */,
-       6,    0,  128,    2, 0x08 /* Private */,
-       7,    0,  129,    2, 0x08 /* Private */,
-       8,    0,  130,    2, 0x08 /* Private */,
-       9,    0,  131,    2, 0x08 /* Private */,
-      10,    0,  132,    2, 0x08 /* Private */,
-      11,    1,  133,    2, 0x08 /* Private */,
-      13,    1,  136,    2, 0x08 /* Private */,
-      15,    1,  139,    2, 0x08 /* Private */,
-      17,    1,  142,    2, 0x08 /* Private */,
-      19,    0,  145,    2, 0x08 /* Private */,
-      20,    0,  146,    2, 0x08 /* Private */,
-      21,    0,  147,    2, 0x08 /* Private */,
-      22,    0,  148,    2, 0x08 /* Private */,
-      23,    0,  149,    2, 0x08 /* Private */,
-      24,    0,  150,    2, 0x08 /* Private */,
-      25,    0,  151,    2, 0x08 /* Private */,
-      26,    0,  152,    2, 0x08 /* Private */,
-      27,    0,  153,    2, 0x0a /* Public */,
+       1,    0,  134,    2, 0x08 /* Private */,
+       3,    0,  135,    2, 0x08 /* Private */,
+       4,    0,  136,    2, 0x08 /* Private */,
+       5,    0,  137,    2, 0x08 /* Private */,
+       6,    0,  138,    2, 0x08 /* Private */,
+       7,    0,  139,    2, 0x08 /* Private */,
+       8,    0,  140,    2, 0x08 /* Private */,
+       9,    0,  141,    2, 0x08 /* Private */,
+      10,    0,  142,    2, 0x08 /* Private */,
+      11,    1,  143,    2, 0x08 /* Private */,
+      13,    1,  146,    2, 0x08 /* Private */,
+      15,    1,  149,    2, 0x08 /* Private */,
+      17,    1,  152,    2, 0x08 /* Private */,
+      19,    0,  155,    2, 0x08 /* Private */,
+      20,    0,  156,    2, 0x08 /* Private */,
+      21,    0,  157,    2, 0x08 /* Private */,
+      22,    0,  158,    2, 0x08 /* Private */,
+      23,    0,  159,    2, 0x08 /* Private */,
+      24,    0,  160,    2, 0x08 /* Private */,
+      25,    0,  161,    2, 0x08 /* Private */,
+      26,    0,  162,    2, 0x08 /* Private */,
+      27,    1,  163,    2, 0x08 /* Private */,
+      29,    1,  166,    2, 0x08 /* Private */,
+      31,    0,  169,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -128,6 +135,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   28,
+    QMetaType::Void, QMetaType::Int,   30,
     QMetaType::Void,
 
        0        // eod
@@ -164,7 +173,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 18: _t->undoEdit(); break;
         case 19: _t->enterBrowseMode(); break;
         case 20: _t->enterEditMode(); break;
-        case 21: _t->addSpriteToScene(); break;
+        case 21: _t->showGrid((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 22: _t->gridNumChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 23: _t->addSpriteToScene(); break;
         default: ;
         }
     }
@@ -195,13 +206,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 24;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 24)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 22;
+        _id -= 24;
     }
     return _id;
 }

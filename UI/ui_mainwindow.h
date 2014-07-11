@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -81,6 +82,10 @@ public:
     QLabel *label_2;
     QDoubleSpinBox *rotateSpinBox;
     QLabel *label;
+    QGroupBox *groupBox_4;
+    QCheckBox *checkBoxGrid;
+    QLabel *label_6;
+    QSpinBox *spinBoxGridNum;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuE_dit;
@@ -388,6 +393,21 @@ public:
 
         verticalLayout_4->addWidget(groupBox);
 
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        checkBoxGrid = new QCheckBox(groupBox_4);
+        checkBoxGrid->setObjectName(QStringLiteral("checkBoxGrid"));
+        checkBoxGrid->setGeometry(QRect(10, 20, 71, 16));
+        label_6 = new QLabel(groupBox_4);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(10, 50, 51, 21));
+        spinBoxGridNum = new QSpinBox(groupBox_4);
+        spinBoxGridNum->setObjectName(QStringLiteral("spinBoxGridNum"));
+        spinBoxGridNum->setGeometry(QRect(70, 50, 42, 22));
+        spinBoxGridNum->setValue(10);
+
+        verticalLayout_4->addWidget(groupBox_4);
+
 
         horizontalLayout_10->addLayout(verticalLayout_4);
 
@@ -538,6 +558,9 @@ public:
         rotateSpinBox->setToolTip(QApplication::translate("MainWindow", "\350\256\276\347\275\256\351\200\211\344\270\255\347\232\204\347\262\276\347\201\265\346\227\213\350\275\254\350\247\222\345\272\246", 0));
 #endif // QT_NO_TOOLTIP
         label->setText(QApplication::translate("MainWindow", "Rotate:", 0));
+        groupBox_4->setTitle(QApplication::translate("MainWindow", "\351\200\211\351\241\271\350\256\276\347\275\256", 0));
+        checkBoxGrid->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\275\221\346\240\274", 0));
+        label_6->setText(QApplication::translate("MainWindow", "\347\275\221\346\240\274\346\225\260\357\274\232", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "F&ile", 0));
         menuE_dit->setTitle(QApplication::translate("MainWindow", "E&dit", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

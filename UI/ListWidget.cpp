@@ -1,4 +1,5 @@
 ﻿#include "ListWidget.h"
+#include "mainwindow.h"
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QInputDialog>
 
