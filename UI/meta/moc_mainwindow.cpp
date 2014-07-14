@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[32];
-    char stringdata[311];
+    QByteArrayData data[35];
+    char stringdata[353];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,27 +50,31 @@ QT_MOC_LITERAL(17, 149, 11),
 QT_MOC_LITERAL(18, 161, 1),
 QT_MOC_LITERAL(19, 163, 10),
 QT_MOC_LITERAL(20, 174, 11),
-QT_MOC_LITERAL(21, 186, 10),
-QT_MOC_LITERAL(22, 197, 14),
-QT_MOC_LITERAL(23, 212, 10),
-QT_MOC_LITERAL(24, 223, 8),
-QT_MOC_LITERAL(25, 232, 15),
-QT_MOC_LITERAL(26, 248, 13),
-QT_MOC_LITERAL(27, 262, 8),
-QT_MOC_LITERAL(28, 271, 4),
-QT_MOC_LITERAL(29, 276, 13),
-QT_MOC_LITERAL(30, 290, 3),
-QT_MOC_LITERAL(31, 294, 16)
+QT_MOC_LITERAL(21, 186, 7),
+QT_MOC_LITERAL(22, 194, 10),
+QT_MOC_LITERAL(23, 205, 14),
+QT_MOC_LITERAL(24, 220, 10),
+QT_MOC_LITERAL(25, 231, 8),
+QT_MOC_LITERAL(26, 240, 15),
+QT_MOC_LITERAL(27, 256, 13),
+QT_MOC_LITERAL(28, 270, 17),
+QT_MOC_LITERAL(29, 288, 15),
+QT_MOC_LITERAL(30, 304, 8),
+QT_MOC_LITERAL(31, 313, 4),
+QT_MOC_LITERAL(32, 318, 13),
+QT_MOC_LITERAL(33, 332, 3),
+QT_MOC_LITERAL(34, 336, 16)
     },
     "MainWindow\0newFile\0\0open\0save\0saveAs\0"
     "publicData\0publicDataAs\0addSprites\0"
     "setSceneBackground\0about\0rotateChange\0"
     "rotate\0scaleChange\0scale\0changeSizeX\0"
     "x\0changeSizeY\0y\0circleEdit\0polygonEdit\0"
-    "commonEdit\0deleteSelected\0choiceEdit\0"
-    "undoEdit\0enterBrowseMode\0enterEditMode\0"
-    "showGrid\0show\0gridNumChange\0num\0"
-    "addSpriteToScene"
+    "checked\0commonEdit\0deleteSelected\0"
+    "choiceEdit\0undoEdit\0enterBrowseMode\0"
+    "enterEditMode\0completeShapeEdit\0"
+    "cancelShapeEdit\0showGrid\0show\0"
+    "gridNumChange\0num\0addSpriteToScene"
 };
 #undef QT_MOC_LITERAL
 
@@ -80,7 +84,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      24,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -88,30 +92,32 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  134,    2, 0x08 /* Private */,
-       3,    0,  135,    2, 0x08 /* Private */,
-       4,    0,  136,    2, 0x08 /* Private */,
-       5,    0,  137,    2, 0x08 /* Private */,
-       6,    0,  138,    2, 0x08 /* Private */,
-       7,    0,  139,    2, 0x08 /* Private */,
-       8,    0,  140,    2, 0x08 /* Private */,
-       9,    0,  141,    2, 0x08 /* Private */,
-      10,    0,  142,    2, 0x08 /* Private */,
-      11,    1,  143,    2, 0x08 /* Private */,
-      13,    1,  146,    2, 0x08 /* Private */,
-      15,    1,  149,    2, 0x08 /* Private */,
-      17,    1,  152,    2, 0x08 /* Private */,
-      19,    0,  155,    2, 0x08 /* Private */,
-      20,    0,  156,    2, 0x08 /* Private */,
-      21,    0,  157,    2, 0x08 /* Private */,
-      22,    0,  158,    2, 0x08 /* Private */,
-      23,    0,  159,    2, 0x08 /* Private */,
-      24,    0,  160,    2, 0x08 /* Private */,
-      25,    0,  161,    2, 0x08 /* Private */,
-      26,    0,  162,    2, 0x08 /* Private */,
-      27,    1,  163,    2, 0x08 /* Private */,
-      29,    1,  166,    2, 0x08 /* Private */,
-      31,    0,  169,    2, 0x0a /* Public */,
+       1,    0,  144,    2, 0x08 /* Private */,
+       3,    0,  145,    2, 0x08 /* Private */,
+       4,    0,  146,    2, 0x08 /* Private */,
+       5,    0,  147,    2, 0x08 /* Private */,
+       6,    0,  148,    2, 0x08 /* Private */,
+       7,    0,  149,    2, 0x08 /* Private */,
+       8,    0,  150,    2, 0x08 /* Private */,
+       9,    0,  151,    2, 0x08 /* Private */,
+      10,    0,  152,    2, 0x08 /* Private */,
+      11,    1,  153,    2, 0x08 /* Private */,
+      13,    1,  156,    2, 0x08 /* Private */,
+      15,    1,  159,    2, 0x08 /* Private */,
+      17,    1,  162,    2, 0x08 /* Private */,
+      19,    0,  165,    2, 0x08 /* Private */,
+      20,    1,  166,    2, 0x08 /* Private */,
+      22,    0,  169,    2, 0x08 /* Private */,
+      23,    0,  170,    2, 0x08 /* Private */,
+      24,    0,  171,    2, 0x08 /* Private */,
+      25,    0,  172,    2, 0x08 /* Private */,
+      26,    0,  173,    2, 0x08 /* Private */,
+      27,    0,  174,    2, 0x08 /* Private */,
+      28,    0,  175,    2, 0x08 /* Private */,
+      29,    0,  176,    2, 0x08 /* Private */,
+      30,    1,  177,    2, 0x08 /* Private */,
+      32,    1,  180,    2, 0x08 /* Private */,
+      34,    0,  183,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -128,6 +134,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   16,
     QMetaType::Void, QMetaType::Int,   18,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   21,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -135,8 +142,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   28,
-    QMetaType::Void, QMetaType::Int,   30,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   31,
+    QMetaType::Void, QMetaType::Int,   33,
     QMetaType::Void,
 
        0        // eod
@@ -166,16 +174,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->changeSizeX((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 12: _t->changeSizeY((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->circleEdit(); break;
-        case 14: _t->polygonEdit(); break;
+        case 14: _t->polygonEdit((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 15: _t->commonEdit(); break;
         case 16: _t->deleteSelected(); break;
         case 17: _t->choiceEdit(); break;
         case 18: _t->undoEdit(); break;
         case 19: _t->enterBrowseMode(); break;
         case 20: _t->enterEditMode(); break;
-        case 21: _t->showGrid((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 22: _t->gridNumChange((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 23: _t->addSpriteToScene(); break;
+        case 21: _t->completeShapeEdit(); break;
+        case 22: _t->cancelShapeEdit(); break;
+        case 23: _t->showGrid((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 24: _t->gridNumChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 25: _t->addSpriteToScene(); break;
         default: ;
         }
     }
@@ -206,13 +216,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 24)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 24;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 24)
+        if (_id < 26)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 24;
+        _id -= 26;
     }
     return _id;
 }

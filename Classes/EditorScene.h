@@ -40,6 +40,9 @@ public:
 	void setGridView(bool isShow, int grid_gap = 10);
 	CC_SYNTHESIZE_READONLY(GridView*, m_gridview, GridView);
 
+	//对象层，用于存储编辑的对象
+	CC_SYNTHESIZE_READONLY(CCLayer*, m_objectLayer, ObjectLayer);
+
 	CCSize  frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
 	CCSize  visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();

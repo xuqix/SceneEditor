@@ -36,7 +36,11 @@ bool EditorScene::init()
 
     m_background	= CCSprite::create("HelloWorld.png");
     m_background->setPosition(ccp(frameSize.width/2, frameSize.height/2));
-    this->addChild(m_background, -1);
+    addChild(m_background, -1);
+
+	//ÃÌº”∂‘œÛ≤„
+	m_objectLayer = CCLayer::create();
+	addChild(m_objectLayer);
 
 	schedule(schedule_selector(EditorScene::adjustBackground), 0.7);
 

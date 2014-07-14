@@ -5,6 +5,9 @@
 #include "../Classes/AppDelegate.h"
 #include "../Classes/EditorScene.h"
 #include "../Classes/CommonObject.h"
+#include "../Classes/PolygonObject.h"
+#include "../Classes/CircleObject.h"
+#include "OperatioManage.h"
 #include <QtWidgets\QMainWindow>
 #include <QtWidgets\QScrollArea>
 #include <QtGui\QMouseEvent>
@@ -90,7 +93,12 @@ public:
 	}
 
 	AppDelegate cocos2dx_app;
-	cocos2d::CCSprite *m_mouseSprite;
+	cocos2d::CCSprite *m_mouseSprite;	
+	
+	//存储当前编辑的圆形操作对象，无则为NULL
+	CC_SYNTHESIZE(CircleEditOper*, m_curCircleOper, CurCircleOper);
+	//存储当前编辑的多边形操作对象
+	CC_SYNTHESIZE(PolygonEditOper*, m_curPolyOper, CurPolyOper);	
 
 	//精灵图片列表
 	CC_SYNTHESIZE(ListWidget*, m_listwidget, ListWidget);

@@ -1,6 +1,7 @@
 #ifndef _OPERATION_H_
 #define _OPERATION_H_
 #include "CommonObject.h"
+#include "PolygonObject.h"
 
 //操作基类
 class Operation
@@ -34,8 +35,64 @@ private:
 	cocos2d::CCNode *layer;			//添加到的层
 	cocos2d::CCPoint pos;			//添加位置
 	CommonObject *sprite_object;	//操作的精灵对象
+};
 
-	CommonEditOper(const CommonEditOper&);
+//多边形编辑操作
+class PolygonEditOper : public Operation
+{
+public:
+	PolygonEditOper(cocos2d::CCNode *node):layer(node) {}
+	bool exec()
+	{
+		polygon_object = PolygonObject::create(CCSprite::create());
+		layer->addChild(polygon_object);
+		return true;
+	}
+
+	bool undo()
+	{
+		polygon_object->removeFromParent();
+		return true;
+	}
+
+	//对象的顶点数组增删操作
+	bool pushPoint(cocos2d::CCPoint p) { return polygon_object->pushPoint(p); }
+	bool popPoint()	{ return polygon_object->popPoint(); }
+private:
+	cocos2d::CCNode *layer;			//添加到的层
+	PolygonObject	*polygon_object;	//操作的多边形对象
+};
+
+//圆形编辑操作
+class CircleEditOper : public Operation
+{
+public:
+	CircleEditOper(cocos2d::CCNode *node,cocos2d::CCPoint center, float radius = 10):layer(node), m_center(center), m_radius(radius) {}
+	bool exec()
+	{
+		circle_object = CircleObject::create(CCSprite::create());
+		circle_object->setCenterPoint(m_center);
+		circle_object->setRadius(m_radius);
+		layer->addChild(circle_object);
+		return true;
+	}
+
+	bool undo()
+	{
+		circle_object->removeFromParent();
+		return true;
+	}
+
+	void setRadius(float radius)
+	{
+		m_radius = radius;
+		circle_object->setRadius(m_radius);
+	}
+private:
+	cocos2d::CCNode *layer;			//添加到的层
+	CircleObject	*circle_object;	//操作的圆形对象
+	float	m_radius;
+	CC_SYNTHESIZE_READONLY(cocos2d::CCPoint, m_center, CenterPoint); //圆心
 };
 
 #endif

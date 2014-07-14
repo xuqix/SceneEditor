@@ -13,6 +13,12 @@ BaseObject::~BaseObject()
     
 }
 
+bool BaseObject::init()
+{
+	setObjectType(ObjectType::BASE_OBJECT);
+	return true;
+}
+
 void BaseObject::bindSprite(CCSprite *sprite)
 {
     if(m_sprite) this->removeChild(m_sprite);

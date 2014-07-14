@@ -48,7 +48,7 @@ private slots:
 	//圆形编辑
     void circleEdit();
 	//多边形编辑
-    void polygonEdit();
+    void polygonEdit(bool checked);
 	//精灵编辑
     void commonEdit();
 	//删除选中的精灵
@@ -61,6 +61,10 @@ private slots:
     //进入浏览模式和编辑模式
     void enterBrowseMode();
     void enterEditMode();
+
+	 //形状点编辑的完成和撤销
+    void completeShapeEdit();
+    void cancelShapeEdit();
 
 	void showGrid(bool show); 
 	void gridNumChange(int num); 

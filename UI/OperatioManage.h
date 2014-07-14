@@ -27,6 +27,8 @@ public:
 		list.pop_back();
 		return true;
 	}
+	//返回当前最新的操作指针
+	Operation* lastOperation() { return list.back(); }
 private:
 	std::deque<Operation*> list;
 };

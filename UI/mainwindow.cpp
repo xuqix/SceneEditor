@@ -12,6 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->scrollArea->setAlignment(Qt::AlignCenter);
 	ui->radioButtonBrowse->setChecked(true);
 
+	ui->pushButtonComplete->setVisible(false);
+	ui->pushButtonCancel->setVisible(false);
+
 	//设置背景色
 	QPalette pal; 
 	pal.setColor(ui->scrollArea->backgroundRole(), Qt::gray);
@@ -28,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->scaleSpinBox, SIGNAL(valueChanged(double)), SLOT(scaleChange(double)));
 
     connect(ui->toolButtonCircle, SIGNAL(clicked()), this, SLOT(circleEdit()));
-    connect(ui->toolButtonPolygon, SIGNAL(clicked()), this, SLOT(polygonEdit()));
+	connect(ui->toolButtonPolygon, SIGNAL(toggled(bool)), this, SLOT(polygonEdit(bool)));
     connect(ui->toolButtonPaint, SIGNAL(clicked()), this, SLOT(commonEdit()) );
     connect(ui->toolButtonDelete, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui->toolButtonChoice, SIGNAL(clicked()), this, SLOT(choiceEdit()));
@@ -42,6 +45,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->checkBoxGrid, SIGNAL(clicked(bool)),this, SLOT(showGrid(bool)));
     connect(ui->spinBoxGridNum, SIGNAL(valueChanged(int)), this, SLOT(gridNumChange(int)));
+
+	connect(ui->pushButtonComplete, SIGNAL(clicked()), this, SLOT(completeShapeEdit()));
+    connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
 
 	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
 	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
@@ -218,9 +224,13 @@ void MainWindow::circleEdit()
 	ModeStateX->setSubMode(ModeState::CircleEdit);
 }
 
-void MainWindow::polygonEdit()
+void MainWindow::polygonEdit(bool checked)
 {
+	if (!checked) ui->pushButtonComplete->click();
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
+	ui->pushButtonComplete->setVisible(checked);
+	ui->pushButtonCancel->setVisible(checked);
+
     qDebug("polygon");
 	ModeStateX->setSubMode(ModeState::PolygonEdit);
 }
@@ -250,12 +260,16 @@ void MainWindow::undoEdit()
 	//int res = QMessageBox::question(this, QStringLiteral("警告!"),QStringLiteral("你确定要删除此项吗?"),  QMessageBox::Yes, QMessageBox::No);
 	//if (res == QMessageBox::Yes);
 	//撤销操作
+	cocos2dx_view->setCurPolyOper(NULL);
 	if(!OperationManageX->undo())
 		QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("无法撤销!"));
 }
 
 void MainWindow::enterBrowseMode()
 {
+	ui->pushButtonComplete->setVisible(false);
+	ui->pushButtonCancel->setVisible(false);
+
 	cocos2dx_view->setCursor(Qt::OpenHandCursor);
     qDebug("browse");
 	ModeStateX->setPrimaryMode(ModeState::BrowseMode);
@@ -306,4 +320,18 @@ void MainWindow::gridNumChange(int num)
 {
 	bool show = ui->checkBoxGrid->isChecked();
 	cocos2dx_view->getEditorScene()->setGridView(show, num);
+}
+
+void MainWindow::completeShapeEdit()
+{
+    qDebug("compelete");
+	cocos2dx_view->setCurPolyOper(NULL);
+}
+
+void MainWindow::cancelShapeEdit()
+{
+    qDebug("cacel");
+	//撤销上次增加的顶点
+	if (cocos2dx_view->getCurPolyOper())
+		cocos2dx_view->getCurPolyOper()->popPoint();
 }

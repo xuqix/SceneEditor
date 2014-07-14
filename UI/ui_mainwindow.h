@@ -24,6 +24,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpinBox>
@@ -71,6 +72,9 @@ public:
     QSpinBox *sizeY;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
+    QHBoxLayout *horizontalLayout_6;
+    QPushButton *pushButtonComplete;
+    QPushButton *pushButtonCancel;
     QVBoxLayout *verticalLayout_4;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_2;
@@ -323,10 +327,26 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 574, 536));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 574, 505));
         scrollArea->setWidget(scrollAreaWidgetContents_2);
 
         verticalLayout_3->addWidget(scrollArea);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        pushButtonComplete = new QPushButton(centralWidget);
+        pushButtonComplete->setObjectName(QStringLiteral("pushButtonComplete"));
+
+        horizontalLayout_6->addWidget(pushButtonComplete);
+
+        pushButtonCancel = new QPushButton(centralWidget);
+        pushButtonCancel->setObjectName(QStringLiteral("pushButtonCancel"));
+
+        horizontalLayout_6->addWidget(pushButtonCancel);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_6);
 
 
         horizontalLayout_10->addLayout(verticalLayout_3);
@@ -540,6 +560,8 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "\345\210\206\350\276\250\347\216\207\350\256\276\347\275\256:", 0));
         label_4->setText(QApplication::translate("MainWindow", "X", 0));
         label_5->setText(QApplication::translate("MainWindow", "Y", 0));
+        pushButtonComplete->setText(QApplication::translate("MainWindow", "\345\256\214\346\210\220\345\275\242\347\212\266\347\274\226\350\276\221", 0));
+        pushButtonCancel->setText(QApplication::translate("MainWindow", "\346\222\244\351\224\200\345\275\242\347\212\266\347\274\226\350\276\221", 0));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "\346\250\241\345\274\217\351\200\211\346\213\251", 0));
 #ifndef QT_NO_STATUSTIP
         radioButtonBrowse->setStatusTip(QApplication::translate("MainWindow", "\351\200\211\344\270\255\350\277\233\345\205\245\346\265\217\350\247\210\346\250\241\345\274\217\346\265\217\350\247\210\345\234\272\346\231\257", 0));

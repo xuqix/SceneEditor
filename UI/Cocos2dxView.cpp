@@ -1,5 +1,4 @@
 #include "Cocos2dxView.h"
-#include "OperatioManage.h"
 #include <QtWidgets\QtWidgets>
 #include <QtWidgets\QScrollArea>
 
@@ -20,7 +19,10 @@ Cocos2dxView::~Cocos2dxView()
 Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 {
 	ModeStateX->setPrimaryMode(ModeState::NoMode);
-	initCocos2dx(); m_mouseSprite = NULL;
+	initCocos2dx();
+	m_mouseSprite = NULL;
+	m_curPolyOper = NULL;
+	auto c = CircleObject::create(CCSprite::create()); c->setCenterPoint(ccp(200, 100)); c->setRadius(100);
 	return;
 }
 
@@ -248,32 +250,51 @@ void Cocos2dxView::mouseReleaseInBrowse(QMouseEvent *event)
 {
 	qDebug("release browse");
 }
+
 //圆形编辑模式
 void Cocos2dxView::mousePressInCircleEdit(QMouseEvent *event)
 {
 	qDebug("press circle");
+	m_curCircleOper = new CircleEditOper(getEditorScene()->getObjectLayer(), convertToOpenglPoint(QCursor::pos()));
+	OperationManageX->exec(m_curCircleOper);
 }
 void Cocos2dxView::mouseMoveInCircleEdit(QMouseEvent *event)
 {
 	qDebug("move circle");
+	CCPoint cur_pos = convertToOpenglPoint(QCursor::pos());
+	float distance = cur_pos.getDistance(m_curCircleOper->getCenterPoint());
+	m_curCircleOper->setRadius(distance + 10);
 }
 void Cocos2dxView::mouseReleaseInCircleEdit(QMouseEvent *event)
 {
 	qDebug("release circle");
+	m_curCircleOper = NULL;
 }
+
 //多边形编辑模式
 void Cocos2dxView::mousePressInPolygonEdit(QMouseEvent *event)
 {
 	qDebug("press polygon1");
+	QPointF pos = event->localPos();
+
+	EditorScene *scene = getEditorScene();
+	//执行操作
+	if (m_curPolyOper == NULL)
+	{
+		m_curPolyOper = new PolygonEditOper(scene->getObjectLayer());
+		OperationManageX->exec(m_curPolyOper);
+	}
+	assert(m_curPolyOper);
+	m_curPolyOper->pushPoint(convertToOpenglPoint(QCursor::pos()));
 }
 void Cocos2dxView::mouseMoveInPolygonEdit(QMouseEvent *event)
 {
-
 	qDebug("press polygon2");
+	m_curPolyOper->popPoint();
+	m_curPolyOper->pushPoint(convertToOpenglPoint(QCursor::pos()));
 }
 void Cocos2dxView::mouseReleaseInPolygonEdit(QMouseEvent *event)
 {
-
 	qDebug("press polygon3");
 }
 
@@ -296,7 +317,7 @@ void Cocos2dxView::mouseReleaseInCommonEdit(QMouseEvent *event)
 
 	//执行操作
 	std::string filename = std::string(item->getAbsoluteFilePath().toLatin1().data());
-	OperationManageX->exec(new CommonEditOper(scene, convertToOpenglPoint(QCursor::pos()), filename));
+	OperationManageX->exec(new CommonEditOper(scene->getObjectLayer(), convertToOpenglPoint(QCursor::pos()), filename));
 
 	//CommonObject *object = CommonObject::create(CCSprite::create(item->getAbsoluteFilePath().toLatin1().data()));
 	//object->setPosition(convertToOpenglPoint(QCursor::pos()));
