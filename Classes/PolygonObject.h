@@ -11,37 +11,24 @@ public:
 	CREATE_OBJECT(PolygonObject);
 
 	bool init() override;
+	
+	bool containsTouchLocation(cocos2d::CCTouch *touch);
 	/*
 	bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 	{
-		CCLOG("ssss");
 		CCPoint p = pTouch->getLocation();
 		CCLOG("%f %f", p.x, p.y);
 		return true;
-	}
-	void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
-	{
-		CCPoint p = pTouch->getLocation();
-		CCLOG("%f %f", p.x, p.y);
-	}
-	void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
-	{
-
-	}
-    
-	void registerWithTouchDispatcher()
-	{
-		CCNode::registerWithTouchDispatcher();
-		cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
 	}*/
-
+	void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+	void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
 
 	//添加多边形顶点
 	bool pushPoint(cocos2d::CCPoint p);
 	//删除最近添加的顶点
 	bool popPoint();
 	//绘制多边形
-	void drawPolygon();
+	void drawPolygon(bool solid = true);
 
 	//多边形的顶点数组
 	std::vector<cocos2d::CCPoint> m_points;

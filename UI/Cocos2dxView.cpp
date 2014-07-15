@@ -22,7 +22,11 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	initCocos2dx();
 	m_mouseSprite = NULL;
 	m_curPolyOper = NULL;
-	auto c = CircleObject::create(CCSprite::create()); c->setCenterPoint(ccp(200, 100)); c->setRadius(100);
+	CCPoint ps[] = { { 100, 200 }, { 100, 100 }, { 200, 100 }, { 200, 200 }, { 150, 150 } };
+	PolygonObject *o = PolygonObject::create(CCSprite::create());
+	//for (auto p : ps)
+	//	o->pushPoint(p);
+	getEditorScene()->getObjectLayer()->addChild(o);
 	return;
 }
 
@@ -268,6 +272,7 @@ void Cocos2dxView::mouseMoveInCircleEdit(QMouseEvent *event)
 void Cocos2dxView::mouseReleaseInCircleEdit(QMouseEvent *event)
 {
 	qDebug("release circle");
+	m_curCircleOper->getCircleObject()->drawCircle(false);
 	m_curCircleOper = NULL;
 }
 
@@ -296,6 +301,8 @@ void Cocos2dxView::mouseMoveInPolygonEdit(QMouseEvent *event)
 void Cocos2dxView::mouseReleaseInPolygonEdit(QMouseEvent *event)
 {
 	qDebug("press polygon3");
+	//最后绘制空心的多边形
+	m_curPolyOper->getPolyObject()->drawPolygon(false);
 }
 
 //普通编辑模式
@@ -327,18 +334,31 @@ void Cocos2dxView::mouseReleaseInCommonEdit(QMouseEvent *event)
 //选取编辑模式
 void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 {
-
-	qDebug("press choice1");
+	QPointF	pos = event->localPos();
+	//组装windows消息
+	UINT message  = WM_LBUTTONDOWN;
+	WPARAM wparam = MK_LBUTTON;
+	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
+	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
+
 void Cocos2dxView::mouseMoveInChoiceEdit(QMouseEvent *event)
 {
-
-	qDebug("press choice2");
+	QPointF	pos = event->localPos();
+	//组装windows消息
+	UINT  message = WM_MOUSEMOVE;
+	WPARAM wparam = MK_LBUTTON;
+	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
+	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 void Cocos2dxView::mouseReleaseInChoiceEdit(QMouseEvent *event)
 {
-
-	qDebug("press choice3");
+	QPointF	pos = event->localPos();
+	//组装windows消息
+	UINT message  = WM_LBUTTONUP;
+	WPARAM wparam = MK_LBUTTON;
+	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
+	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 
 

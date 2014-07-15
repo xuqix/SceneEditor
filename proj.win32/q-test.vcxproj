@@ -135,10 +135,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BaseObject.cpp" />
+    <ClCompile Include="..\Classes\CircleObject.cpp" />
     <ClCompile Include="..\Classes\CommonObject.cpp" />
     <ClCompile Include="..\Classes\EditorScene.cpp" />
     <ClCompile Include="..\Classes\GridView.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\PolygonObject.cpp" />
     <ClCompile Include="..\UI\Cocos2dxView.cpp" />
     <ClCompile Include="..\UI\dialog.cpp" />
     <ClCompile Include="..\UI\ListWidget.cpp" />
@@ -153,10 +155,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BaseObject.h" />
+    <ClInclude Include="..\Classes\CircleObject.h" />
     <ClInclude Include="..\Classes\CommonObject.h" />
     <ClInclude Include="..\Classes\EditorScene.h" />
     <ClInclude Include="..\Classes\GridView.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\PolygonObject.h" />
     <ClInclude Include="..\UI\Cocos2dxView.h" />
     <ClInclude Include="..\UI\dialog.h" />
     <ClInclude Include="..\UI\ListWidget.h" />

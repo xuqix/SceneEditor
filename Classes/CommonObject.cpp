@@ -1,1 +1,10 @@
 #include "CommonObject.h"
+
+USING_NS_CC;
+
+bool CommonObject::init()
+{
+	setObjectType(ObjectType::COMMON_OBJECT);
+	registerWithTouchDispatcher();
+	return true;
+}

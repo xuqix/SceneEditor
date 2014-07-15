@@ -8,16 +8,19 @@ bool CircleObject::init()
 	m_drawnode = CCDrawNode::create();
 	addChild(m_drawnode);
 
-	setBorderColor(ccc4f(0.5, 0.5, 0.5, 1));
+	registerWithTouchDispatcher();
+
+	setBorderColor(ccc4f(1, 0, 0, 1));
 	setFillColor(ccc4f(0.5, 0.5, 0.5, 0.5));
 	m_radius = 10;
 	return true;
 }
 
-void CircleObject::drawCircle()
+void CircleObject::drawCircle(bool solid)
 {
 	m_drawnode->clear();
-	m_drawnode->drawDot(m_center, m_radius, m_fillColor);
+	if (solid)
+		m_drawnode->drawDot(m_center, m_radius, m_fillColor);
 }
 
 void CircleObject::setRadius(float radius)
@@ -25,4 +28,29 @@ void CircleObject::setRadius(float radius)
 	if (radius < 10) return;
 	m_radius = radius;
 	drawCircle();
+}
+
+bool CircleObject::containsTouchLocation(cocos2d::CCTouch *touch)
+{
+	return (m_radius * m_radius) >(m_center.getDistanceSq(touch->getLocation()));
+}
+
+void CircleObject::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+	setCenterPoint(getCenterPoint() + pTouch->getDelta());
+	drawCircle();
+}
+
+void CircleObject::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+	setCenterPoint(getCenterPoint() + pTouch->getDelta());
+	drawCircle();
+}
+
+
+void CircleObject::draw()
+{
+	glLineWidth(2);
+	ccDrawColor4B(128, 128, 128, 255);
+	ccDrawCircle(m_center, m_radius, 0, 100, 0);
 }

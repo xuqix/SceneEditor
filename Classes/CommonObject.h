@@ -9,6 +9,8 @@ class CommonObject : public BaseObject
 {
 public:
 	CREATE_OBJECT(CommonObject);
+
+	bool init() override;
 };
 
 #endif

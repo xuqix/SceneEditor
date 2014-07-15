@@ -63,6 +63,12 @@
     <ClCompile Include="..\Classes\GridView.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CircleObject.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PolygonObject.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -114,6 +120,12 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridView.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PolygonObject.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CircleObject.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

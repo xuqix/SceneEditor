@@ -29,7 +29,7 @@ static __TYPE__* create(cocos2d::CCSprite *sprite)\
 
 //编辑器基本编辑对象
 
-class BaseObject : public cocos2d::CCNode
+class BaseObject : public cocos2d::CCNode, public cocos2d::CCTargetedTouchDelegate
 {
 public:
     BaseObject(cocos2d::CCSprite *sprite = NULL);
@@ -44,6 +44,19 @@ public:
     
     //获取精灵对象
     cocos2d::CCSprite* getSprite() { return m_sprite; }
+
+	//注册启用触摸功能
+	void registerWithTouchDispatcher()
+	{
+		cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
+	}
+
+	//对象是否被触摸,可重写
+	virtual bool containsTouchLocation(cocos2d::CCTouch *touch);
+	//默认实现了触摸拖拽功能
+	bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
+	void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
+	void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
     
 protected:
 	CC_SYNTHESIZE(ObjectType, m_type, ObjectType);

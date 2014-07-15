@@ -60,7 +60,7 @@ public:
 	bool popPoint()	{ return polygon_object->popPoint(); }
 private:
 	cocos2d::CCNode *layer;			//添加到的层
-	PolygonObject	*polygon_object;	//操作的多边形对象
+	CC_SYNTHESIZE_READONLY(PolygonObject*, polygon_object, PolyObject);	//操作的多边形对象
 };
 
 //圆形编辑操作
@@ -90,8 +90,8 @@ public:
 	}
 private:
 	cocos2d::CCNode *layer;			//添加到的层
-	CircleObject	*circle_object;	//操作的圆形对象
 	float	m_radius;
+	CC_SYNTHESIZE_READONLY(CircleObject*, circle_object, CircleObject);	//操作的圆形对象
 	CC_SYNTHESIZE_READONLY(cocos2d::CCPoint, m_center, CenterPoint); //圆心
 };
 
