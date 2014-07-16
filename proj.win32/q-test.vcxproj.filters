@@ -128,5 +128,12 @@
     <ClInclude Include="..\Classes\CircleObject.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SceneEditor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
 </Project>

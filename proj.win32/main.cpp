@@ -41,7 +41,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	int argc = 1; char **argv = NULL;
 	QApplication app(argc, argv);
 	app.setOrganizationName("QtProject");
-	app.setApplicationName("Application Example");
+	app.setApplicationName("SceneEditor by xiaok");//"Application Example");
 	MainWindow mainWin;
 	mainWin.show();
 	return app.exec();

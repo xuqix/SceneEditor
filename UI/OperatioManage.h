@@ -17,6 +17,7 @@ public:
 		if(canUndo)	list.push_back(oper);
 		if (list.size() > 100)
 			list.erase(list.begin(), list.begin() + 10);
+		return true;
 	}
 	bool undo()
 	{
