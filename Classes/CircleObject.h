@@ -30,11 +30,12 @@ public:
 
 
 	//圆形的触摸判断
-	bool containsTouchLocation(cocos2d::CCTouch *touch) override;
+	bool containsTouchLocation(cocos2d::CCPoint world_point) override;
 	//重写部分触摸拖拽功能
 	void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
 	void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
 
+	//用于绘制圆形边框
 	void draw() override;
 };
 

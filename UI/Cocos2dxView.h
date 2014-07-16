@@ -46,6 +46,10 @@ private slots:
 	//设置鼠标上的精灵位置
 	void mouseMoveInView();
 
+	//右键菜单
+	//删除选中对象
+	void delChoiceObject();
+
 public:
 	void enterEvent(QEvent *event) override;
 	void leaveEvent(QEvent *event) override;
@@ -63,6 +67,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
 	//各个模式下独立的鼠标响应处理
+	//左键响应
 	//浏览模式
 	void mousePressInBrowse(QMouseEvent *event);
 	void mouseMoveInBrowse(QMouseEvent *event);
@@ -84,7 +89,11 @@ public:
 	void mousePressInChoiceEdit(QMouseEvent *event);
 	void mouseMoveInChoiceEdit(QMouseEvent *event);
 	void mouseReleaseInChoiceEdit(QMouseEvent *event);
+	//右键响应
+	//右键菜单事件处理
+    void contextMenuEvent ( QContextMenuEvent * event);
 
+	//将qt全局坐标点转换为2dx视图中的opengl点
 	cocos2d::CCPoint convertToOpenglPoint(QPoint point)
 	{
 		QRect r = this->geometry();
@@ -102,6 +111,9 @@ public:
 
 	//精灵图片列表
 	CC_SYNTHESIZE(ListWidget*, m_listwidget, ListWidget);
+
+	//当前被选中的对象,用于右键菜单
+	BaseObject *m_choicedObj;
 
 	//内置默认分辨率
 	const int defaultSizeX = 480;

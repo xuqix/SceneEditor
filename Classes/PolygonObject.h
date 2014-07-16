@@ -12,7 +12,7 @@ public:
 
 	bool init() override;
 	
-	bool containsTouchLocation(cocos2d::CCTouch *touch);
+	bool containsTouchLocation(cocos2d::CCPoint world_point) override;
 	/*
 	bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 	{

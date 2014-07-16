@@ -31,7 +31,7 @@ bool EditorScene::init()
     {
         return false;
     }
-	this->setTouchEnabled(true);
+	//this->setTouchEnabled(true);
 	m_gridview = NULL;
 
     m_background	= CCSprite::create("HelloWorld.png");
@@ -78,3 +78,18 @@ void EditorScene::setGridView(bool isShow, int grid_gap)
 	else
 		m_gridview->setVisible(false);
 }
+
+BaseObject* EditorScene::getObjectInPoint(cocos2d::CCPoint pos)
+{
+	CCArray *object_array = getObjectLayer()->getChildren();
+	CCObject *child;
+	CCARRAY_FOREACH(object_array, child)
+	{
+		BaseObject *obj = (BaseObject*)child;
+		assert(obj);
+		if (obj->containsTouchLocation(pos))
+			return obj;
+	}
+	return NULL;
+}
+

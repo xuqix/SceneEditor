@@ -52,7 +52,8 @@ public:
 	}
 
 	//对象是否被触摸,可重写
-	virtual bool containsTouchLocation(cocos2d::CCTouch *touch);
+	virtual bool containsTouchLocation(cocos2d::CCPoint world_point);
+//	virtual bool containsTouchLocation(cocos2d::CCTouch *touch);
 	//默认实现了触摸拖拽功能
 	bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
 	void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;

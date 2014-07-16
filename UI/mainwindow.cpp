@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->pushButtonComplete->setVisible(false);
 	ui->pushButtonCancel->setVisible(false);
 
+	ui->toolButtonDelete->setVisible(false);
+
 	//设置背景色
 	QPalette pal; 
 	pal.setColor(ui->scrollArea->backgroundRole(), Qt::gray);
@@ -34,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->toolButtonPolygon, SIGNAL(toggled(bool)), this, SLOT(polygonEdit(bool)));
     connect(ui->toolButtonPaint, SIGNAL(clicked()), this, SLOT(commonEdit()) );
     connect(ui->toolButtonDelete, SIGNAL(clicked()), this, SLOT(deleteSelected()));
-	connect(ui->toolButtonChoice, SIGNAL(clicked()), this, SLOT(choiceEdit()));
+	connect(ui->toolButtonChoice, SIGNAL(toggled(bool)), this, SLOT(choiceEdit(bool)));
 	connect(ui->toolButtonUndo, SIGNAL(clicked()), this, SLOT(undoEdit()));
 
     connect(ui->radioButtonBrowse, SIGNAL(clicked()), this, SLOT(enterBrowseMode()));
@@ -49,16 +51,17 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->pushButtonComplete, SIGNAL(clicked()), this, SLOT(completeShapeEdit()));
     connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
 
+	//test
 	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
 	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
     ListWidgetItem *item1;
     item1 = new ListWidgetItem(info);
 
-	//test
     item1->setIcon(QIcon(":/images/change.png"));
     item1->setSizeHint(QSize(100,100));
     item1->setText("LOCK");
     ui->listWidget->addItem(item1);
+
 
     createActions();
     createMenus();
@@ -232,7 +235,7 @@ void MainWindow::polygonEdit(bool checked)
 	ui->pushButtonCancel->setVisible(checked);
 
     qDebug("polygon");
-	ModeStateX->setSubMode(ModeState::PolygonEdit);
+	if(checked)	ModeStateX->setSubMode(ModeState::PolygonEdit);
 }
 
 void MainWindow::commonEdit()
@@ -242,9 +245,11 @@ void MainWindow::commonEdit()
 	ModeStateX->setSubMode(ModeState::CommonEdit);
 }
 
-void MainWindow::choiceEdit()
+void MainWindow::choiceEdit(bool checked)
 {
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
+	cocos2dx_view->setCursor( checked ? Qt::ClosedHandCursor : Qt::ArrowCursor);
+	if (!checked) return;
 	qDebug("select");
 	ModeStateX->setSubMode(ModeState::ChoiceEdit);
 }
@@ -335,3 +340,4 @@ void MainWindow::cancelShapeEdit()
 	if (cocos2dx_view->getCurPolyOper())
 		cocos2dx_view->getCurPolyOper()->popPoint();
 }
+

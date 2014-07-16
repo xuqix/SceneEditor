@@ -59,9 +59,9 @@ void PolygonObject::drawPolygon(bool solid)
 	}
 }
 
-bool PolygonObject::containsTouchLocation(cocos2d::CCTouch *touch)
+bool PolygonObject::containsTouchLocation(cocos2d::CCPoint world_point)
 {
-	CCPoint pos = touch->getLocation();
+	CCPoint pos = world_point;//touch->getLocation();
 	int nvert = m_points.size();
 	int i, j, c = 0;
 	for (i = 0, j = nvert - 1; i < nvert; j = i++) 

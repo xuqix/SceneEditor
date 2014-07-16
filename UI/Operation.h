@@ -3,6 +3,12 @@
 #include "CommonObject.h"
 #include "PolygonObject.h"
 
+//标示操作类型
+enum class OperType
+{
+	COMMON_EDIT, POLYGON_EDIT, CIRCLE_EDIT
+};
+
 //操作基类
 class Operation
 {
@@ -10,13 +16,17 @@ public:
 	virtual bool exec() = 0;	//执行操作
 	virtual bool undo() = 0;	//撤销操作
 	virtual ~Operation() {}
+	CC_SYNTHESIZE(OperType, m_type, OperType);
 };
 
 //普通编辑操作
 class CommonEditOper : public Operation
 {
 public:
-	CommonEditOper(cocos2d::CCNode *node, cocos2d::CCPoint point, std::string path):pos(point),layer(node),file_path(path) {}
+	CommonEditOper(cocos2d::CCNode *node, cocos2d::CCPoint point, std::string path) :pos(point), layer(node), file_path(path) 
+	{ 
+		setOperType(OperType::COMMON_EDIT); 
+	}
 	bool exec()
 	{
 		sprite_object = CommonObject::create(CCSprite::create(file_path.c_str()));
@@ -34,14 +44,14 @@ private:
 	std::string  file_path;			
 	cocos2d::CCNode *layer;			//添加到的层
 	cocos2d::CCPoint pos;			//添加位置
-	CommonObject *sprite_object;	//操作的精灵对象
+	CC_SYNTHESIZE_READONLY(CommonObject*, sprite_object, CommonObject);	//操作的精灵对象
 };
 
 //多边形编辑操作
 class PolygonEditOper : public Operation
 {
 public:
-	PolygonEditOper(cocos2d::CCNode *node):layer(node) {}
+	PolygonEditOper(cocos2d::CCNode *node) :layer(node) { setOperType(OperType::POLYGON_EDIT); }
 	bool exec()
 	{
 		polygon_object = PolygonObject::create(CCSprite::create());
@@ -67,7 +77,10 @@ private:
 class CircleEditOper : public Operation
 {
 public:
-	CircleEditOper(cocos2d::CCNode *node,cocos2d::CCPoint center, float radius = 10):layer(node), m_center(center), m_radius(radius) {}
+	CircleEditOper(cocos2d::CCNode *node,cocos2d::CCPoint center, float radius = 10):layer(node), m_center(center), m_radius(radius) 
+	{
+		setOperType(OperType::CIRCLE_EDIT);
+	}
 	bool exec()
 	{
 		circle_object = CircleObject::create(CCSprite::create());

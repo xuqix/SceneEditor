@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "GridView.h"
+#include "BaseObject.h"
 
 USING_NS_CC;
 
@@ -21,6 +22,9 @@ public:
 	bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
 	void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
 	void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+
+	//若此坐标存在对象，则返回此对象，否则返回NULL
+	BaseObject* getObjectInPoint(cocos2d::CCPoint pos);
     
 	void registerWithTouchDispatcher()
 	{
@@ -34,7 +38,7 @@ public:
     // implement the "static node()" method manually
     CREATE_FUNC(EditorScene);
 
-	CC_SYNTHESIZE_READONLY(CCSprite*, m_background, Background);
+	CC_SYNTHESIZE(CCSprite*, m_background, Background);
 
 	//设置是否显示网格及网格数grid_gap * grid_gap
 	void setGridView(bool isShow, int grid_gap = 10);

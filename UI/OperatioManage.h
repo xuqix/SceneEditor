@@ -27,6 +27,29 @@ public:
 		list.pop_back();
 		return true;
 	}
+	bool undo(BaseObject *obj)
+	{
+		assert(obj);
+		//查找对象属于哪个操作
+		for (auto oper : list)
+		{
+			BaseObject *oper_obj = NULL;
+			switch (oper->getOperType())
+			{
+			case OperType::COMMON_EDIT: oper_obj = ((CommonEditOper*)oper)->getCommonObject(); break;
+			case OperType::CIRCLE_EDIT: oper_obj = ((CircleEditOper*)oper)->getCircleObject(); break;
+			case OperType::POLYGON_EDIT:oper_obj = ((PolygonEditOper*)oper)->getPolyObject();  break;
+			}
+			if (obj == oper_obj)
+			{
+				if(!oper->undo()) return false;
+				delete oper;
+				list.erase(std::find(list.begin(), list.end(), oper));
+				return true;
+			}
+		}
+		return false;
+	}
 	//返回当前最新的操作指针
 	Operation* lastOperation() { return list.back(); }
 private:

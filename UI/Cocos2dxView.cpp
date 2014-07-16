@@ -22,11 +22,6 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	initCocos2dx();
 	m_mouseSprite = NULL;
 	m_curPolyOper = NULL;
-	CCPoint ps[] = { { 100, 200 }, { 100, 100 }, { 200, 100 }, { 200, 200 }, { 150, 150 } };
-	PolygonObject *o = PolygonObject::create(CCSprite::create());
-	//for (auto p : ps)
-	//	o->pushPoint(p);
-	getEditorScene()->getObjectLayer()->addChild(o);
 	return;
 }
 
@@ -73,6 +68,7 @@ void Cocos2dxView::enterEvent(QEvent *event)
 	qDebug("enter");
 	return;
 	cocos2d::CCScene *scene = CCDirector::sharedDirector()->getRunningScene();
+	
 	if (scene)
 	{
 		QRect r = this->geometry();
@@ -80,7 +76,7 @@ void Cocos2dxView::enterEvent(QEvent *event)
 		QPoint	pos = mapFromGlobal(QCursor::pos());
 		m_mouseSprite->setPosition(ccp(pos.rx(), r.height() - pos.ry()));
 		scene->addChild(m_mouseSprite);
-
+	
 		m_mouseTimer.setParent(this);
 		connect(&m_mouseTimer, SIGNAL(timeout()), this, SLOT(mouseMoveInView()));
 		
@@ -238,7 +234,11 @@ void Cocos2dxView::mouseReleaseEvent(QMouseEvent *event)
 
 void Cocos2dxView::setBackground(QString filename)
 {
-	getEditorScene()->getBackground()->setTexture(CCTextureCache::sharedTextureCache()->addImage(filename.toLatin1().data()));
+	getEditorScene()->getBackground()->removeFromParent();
+	cocos2d::CCSprite *spr = cocos2d::CCSprite::create(filename.toLatin1().data());
+	getEditorScene()->setBackground(spr);
+	getEditorScene()->addChild(spr,-1);
+//	getEditorScene()->getBackground()->setTexture(CCTextureCache::sharedTextureCache()->addImage(filename.toLatin1().data()));
 }
 
 //浏览模式
@@ -361,4 +361,23 @@ void Cocos2dxView::mouseReleaseInChoiceEdit(QMouseEvent *event)
 	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 
+void Cocos2dxView::contextMenuEvent( QContextMenuEvent * event)
+{
+	if (ModeStateX->getPrimaryMode() != ModeState::EditMode || ModeStateX->getSubMode() != ModeState::ChoiceEdit)
+		return;
 
+	m_choicedObj = getEditorScene()->getObjectInPoint(convertToOpenglPoint(QCursor::pos()));
+	if (!m_choicedObj) return;
+
+    QMenu *popMenu = new QMenu(this);
+	QAction *del = new QAction(QIcon(":/images/delete.png"), QStringLiteral("删除此对象"), this);
+	connect(del, SIGNAL(triggered()), this, SLOT(delChoiceObject()));
+	popMenu->addAction(del);
+    popMenu->exec(QCursor::pos()); // 菜单出现的位置为当前鼠标的位置
+}
+
+void Cocos2dxView::delChoiceObject()
+{
+	OperationManageX->undo(m_choicedObj);
+	m_choicedObj = NULL;
+}

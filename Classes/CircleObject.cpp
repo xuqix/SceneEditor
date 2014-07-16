@@ -30,9 +30,9 @@ void CircleObject::setRadius(float radius)
 	drawCircle();
 }
 
-bool CircleObject::containsTouchLocation(cocos2d::CCTouch *touch)
+bool CircleObject::containsTouchLocation(cocos2d::CCPoint world_point)
 {
-	return (m_radius * m_radius) >(m_center.getDistanceSq(touch->getLocation()));
+	return (m_radius * m_radius) >(m_center.getDistanceSq(world_point));
 }
 
 void CircleObject::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
@@ -44,7 +44,7 @@ void CircleObject::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 void CircleObject::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
 	setCenterPoint(getCenterPoint() + pTouch->getDelta());
-	drawCircle();
+	drawCircle(false);
 }
 
 

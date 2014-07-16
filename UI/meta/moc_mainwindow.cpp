@@ -109,15 +109,15 @@ static const uint qt_meta_data_MainWindow[] = {
       20,    1,  166,    2, 0x08 /* Private */,
       22,    0,  169,    2, 0x08 /* Private */,
       23,    0,  170,    2, 0x08 /* Private */,
-      24,    0,  171,    2, 0x08 /* Private */,
-      25,    0,  172,    2, 0x08 /* Private */,
-      26,    0,  173,    2, 0x08 /* Private */,
-      27,    0,  174,    2, 0x08 /* Private */,
-      28,    0,  175,    2, 0x08 /* Private */,
-      29,    0,  176,    2, 0x08 /* Private */,
-      30,    1,  177,    2, 0x08 /* Private */,
-      32,    1,  180,    2, 0x08 /* Private */,
-      34,    0,  183,    2, 0x0a /* Public */,
+      24,    1,  171,    2, 0x08 /* Private */,
+      25,    0,  174,    2, 0x08 /* Private */,
+      26,    0,  175,    2, 0x08 /* Private */,
+      27,    0,  176,    2, 0x08 /* Private */,
+      28,    0,  177,    2, 0x08 /* Private */,
+      29,    0,  178,    2, 0x08 /* Private */,
+      30,    1,  179,    2, 0x08 /* Private */,
+      32,    1,  182,    2, 0x08 /* Private */,
+      34,    0,  185,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -137,7 +137,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Bool,   21,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   21,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -177,7 +177,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 14: _t->polygonEdit((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 15: _t->commonEdit(); break;
         case 16: _t->deleteSelected(); break;
-        case 17: _t->choiceEdit(); break;
+        case 17: _t->choiceEdit((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 18: _t->undoEdit(); break;
         case 19: _t->enterBrowseMode(); break;
         case 20: _t->enterEditMode(); break;

@@ -54,7 +54,7 @@ private slots:
 	//删除选中的精灵
     void deleteSelected();
 	//选取精灵
-	void choiceEdit();
+	void choiceEdit(bool checked);
 	//撤销编辑
 	void undoEdit();
 
