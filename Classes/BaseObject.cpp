@@ -48,3 +48,20 @@ void BaseObject::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
 	setPosition(getPosition() + pTouch->getDelta());
 }
+
+void BaseObject::setBlink(bool blink)
+{
+	static int tag = 100;
+	if (blink)
+	{
+		auto action = CCRepeatForever::create(CCBlink::create(1.4, 2)); action->setTag(tag);
+		this->runAction(action);
+		setisBlink(true);
+	}
+	else
+	{
+		this->stopActionByTag(tag);
+		this->setVisible(true);
+		setisBlink(false);
+	}
+}

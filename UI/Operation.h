@@ -32,6 +32,7 @@ public:
 		sprite_object = CommonObject::create(CCSprite::create(file_path.c_str()));
 		sprite_object->setPosition(pos);
 		layer->addChild(sprite_object);
+		
 		return true;
 	}
 

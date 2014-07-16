@@ -38,6 +38,10 @@ public:
 	CREATE_OBJECT(BaseObject);
 
 	bool init() override;
+
+	//设置精灵闪烁
+	void setBlink(bool blink);
+	CC_SYNTHESIZE(bool, m_isBlink, isBlink);
     
     //绑定精灵对象
     void bindSprite(cocos2d::CCSprite *sprite);

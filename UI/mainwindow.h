@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QSpinBox>
 #include <QtCore/QEvent>
 #include "ListWidget.h"
 #include "Cocos2dxView.h"
@@ -82,7 +83,7 @@ private:
 private:
 	//cocos2dx视图窗口
 	Cocos2dxView	*cocos2dx_view;
-private:
+public:
     Ui::MainWindow *ui;
 };
 

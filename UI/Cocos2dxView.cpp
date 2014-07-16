@@ -1,4 +1,6 @@
 #include "Cocos2dxView.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QtWidgets\QtWidgets>
 #include <QtWidgets\QScrollArea>
 
@@ -22,6 +24,7 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	initCocos2dx();
 	m_mouseSprite = NULL;
 	m_curPolyOper = NULL;
+	m_choicedObj = NULL;
 	return;
 }
 
@@ -331,6 +334,13 @@ void Cocos2dxView::mouseReleaseInCommonEdit(QMouseEvent *event)
 	//scene->addChild(object);
 }
 
+void Cocos2dxView::stopAllBlink()
+{
+	CCObject *obj;
+	CCARRAY_FOREACH(getEditorScene()->getObjectLayer()->getChildren(), obj)
+		((BaseObject*)obj)->setBlink(false);
+}
+
 //选取编辑模式
 void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 {
@@ -340,6 +350,16 @@ void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 	WPARAM wparam = MK_LBUTTON;
 	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
 	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
+
+	stopAllBlink();
+	m_choicedObj = getEditorScene()->getObjectInPoint(convertToOpenglPoint(QCursor::pos()));
+	if (!m_choicedObj) return;
+	m_choicedObj->setBlink(true);
+
+	//qDebug("test:%s ", this->parent()->parent()->parent()->parent()->objectName().toLatin1().data());
+	//用qtdesigner拉出来的蛋疼的父子关系
+	//设置旋转角度控件值
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->rotateSpinBox->setValue(m_choicedObj->getRotation());
 }
 
 void Cocos2dxView::mouseMoveInChoiceEdit(QMouseEvent *event)

@@ -89,6 +89,8 @@ public:
 	void mousePressInChoiceEdit(QMouseEvent *event);
 	void mouseMoveInChoiceEdit(QMouseEvent *event);
 	void mouseReleaseInChoiceEdit(QMouseEvent *event);
+	//停止所有对象的闪烁
+	void stopAllBlink();
 	//右键响应
 	//右键菜单事件处理
     void contextMenuEvent ( QContextMenuEvent * event);
@@ -113,7 +115,7 @@ public:
 	CC_SYNTHESIZE(ListWidget*, m_listwidget, ListWidget);
 
 	//当前被选中的对象,用于右键菜单
-	BaseObject *m_choicedObj;
+	CC_SYNTHESIZE_READONLY(BaseObject*, m_choicedObj, ChoiceObject);
 
 	//内置默认分辨率
 	const int defaultSizeX = 480;

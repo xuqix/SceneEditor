@@ -208,6 +208,10 @@ void MainWindow::about()
 void MainWindow::rotateChange(double rotate)
 {
     qDebug("%lf", rotate);
+	BaseObject *object = cocos2dx_view->getChoiceObject();
+	if (!object) return;
+	if ((object->getObjectType() == ObjectType::COMMON_OBJECT) && object->getisBlink())
+		object->setRotation(rotate);
 }
 
 void MainWindow::scaleChange(double scale)
@@ -247,6 +251,7 @@ void MainWindow::commonEdit()
 
 void MainWindow::choiceEdit(bool checked)
 {
+	if (!checked) cocos2dx_view->stopAllBlink();
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
 	cocos2dx_view->setCursor( checked ? Qt::ClosedHandCursor : Qt::ArrowCursor);
 	if (!checked) return;
@@ -274,6 +279,7 @@ void MainWindow::enterBrowseMode()
 {
 	ui->pushButtonComplete->setVisible(false);
 	ui->pushButtonCancel->setVisible(false);
+	cocos2dx_view->stopAllBlink();
 
 	cocos2dx_view->setCursor(Qt::OpenHandCursor);
     qDebug("browse");
