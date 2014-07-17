@@ -7,6 +7,7 @@
 namespace Ui {
 class Dialog;
 }
+class ListWidgetItem;
 
 class Dialog : public QDialog
 {
@@ -15,6 +16,14 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
+
+	//将设置的属性保存到目标
+	void storeAttrToTarget();
+
+	void setTarget(ListWidgetItem *target) { m_target = target; }
+private:
+	//此对话框的服务目标
+	ListWidgetItem *m_target;
 
 private slots:
     void ok();

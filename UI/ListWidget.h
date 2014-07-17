@@ -8,6 +8,7 @@
 #include <QtCore/QFileInfo>
 #include <QtWidgets/QListWidget>
 #include "dialog.h"
+#include "../Classes/JsonX.h"
 
 //选择列表项
 class ListWidgetItem : public QListWidgetItem
@@ -17,9 +18,15 @@ public:
     ListWidgetItem(QFileInfo &fileinfo) { file_info = fileinfo; }
     QString getFileName() { return file_info.fileName(); }
 	QString getAbsoluteFilePath() { return file_info.absoluteFilePath(); }
+	
+	//获取列表项精灵的类型
+	QString getSpriteType() { return this->text(); }
+	//精灵属性
+	JsonX	m_attr;
 private:
 	//列表项图片文件信息
 	QFileInfo file_info;
+
 };
 
 //图片选择列表

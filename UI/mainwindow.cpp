@@ -217,6 +217,10 @@ void MainWindow::rotateChange(double rotate)
 void MainWindow::scaleChange(double scale)
 {
     qDebug("%lf", scale);
+	BaseObject *object = cocos2dx_view->getChoiceObject();
+	if (!object) return;
+	if ((object->getObjectType() == ObjectType::COMMON_OBJECT) && object->getisBlink())
+		object->setScale(scale);
 }
 
 void MainWindow::addSpriteToScene()

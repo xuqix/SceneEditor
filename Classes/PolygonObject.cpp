@@ -45,17 +45,17 @@ void PolygonObject::drawPolygon(bool solid)
 
 	if (m_points.empty())	return;
 	m_drawnode->clear();
-	if (m_points.size() == 2)	m_drawnode->drawSegment(m_points[0], m_points[1], 1, m_borderColor);
+	if (m_points.size() == 2)	m_drawnode->drawSegment(m_points[0], m_points[1], 1.5, m_borderColor);
 	if (m_points.size() > 2)
 	{
 		CCPoint	points[128];
 		for (size_t i = 0; i < m_points.size(); i++)
 			points[i] = m_points[i];
-		m_drawnode->drawPolygon(points, m_points.size(), fill_color, 1, m_borderColor);
+		m_drawnode->drawPolygon(points, m_points.size(), fill_color, 1.5, m_borderColor);
 	}
 	for (int i = 0; i < m_points.size(); i++)
 	{
-		m_drawnode->drawDot(m_points[i], 2, m_vertexColor);
+		m_drawnode->drawDot(m_points[i], 2.5, m_vertexColor);
 	}
 }
 

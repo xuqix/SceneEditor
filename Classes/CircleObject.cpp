@@ -50,7 +50,7 @@ void CircleObject::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEve
 
 void CircleObject::draw()
 {
-	glLineWidth(2);
+	glLineWidth(2.5);
 	ccDrawColor4B(128, 128, 128, 255);
 	ccDrawCircle(m_center, m_radius, 0, 100, 0);
 }

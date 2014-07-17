@@ -360,6 +360,8 @@ void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 	//用qtdesigner拉出来的蛋疼的父子关系
 	//设置旋转角度控件值
 	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->rotateSpinBox->setValue(m_choicedObj->getRotation());
+	//设置缩放大小控件值
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->scaleSpinBox->setValue(m_choicedObj->getScale());
 }
 
 void Cocos2dxView::mouseMoveInChoiceEdit(QMouseEvent *event)

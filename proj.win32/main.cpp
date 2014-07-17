@@ -23,6 +23,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #include "main.h"
 
 #include "../Classes/AppDelegate.h"
+#include "../Classes/JsonX.h"
 #include <QtWidgets\QApplication>
 #include <QtCore/QTextCodec>
 #include "UI/mainwindow.h"
