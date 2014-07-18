@@ -6,6 +6,7 @@ bool PolygonObject::init()
 {
 	registerWithTouchDispatcher();
 	setObjectType(ObjectType::POLYGON_OBJECT);
+	setTypeName("PolygonObject");
 	m_drawnode = CCDrawNode::create();
 	addChild(m_drawnode);
 

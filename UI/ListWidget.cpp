@@ -130,10 +130,9 @@ void ListWidget::delSelectedSprite()
 
 void ListWidget::setSpriteAttribute()
 {
-    Dialog *d = new Dialog(this);
 	ListWidgetItem *item = (ListWidgetItem*)this->currentItem();
+    Dialog *d = new Dialog(&(item->m_attr), this);
 	if (!item) return;
-	d->setTarget(item);
     int x = d->exec();
     qDebug(" exec %d", x);
 }

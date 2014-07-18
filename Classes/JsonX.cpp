@@ -105,7 +105,37 @@ rapidjson::Value& JsonX::find(const char *name)
 	return doc[name];
 }
 
+bool JsonX::has(const char *key)
+{
+	return doc.HasMember(key);
+}
+
 rapidjson::Document& JsonX::getDocument()
 {
 	return doc;
 }
+
+void JsonX::clear()
+{
+	//删除将导致迭代器失效
+	for (auto iter = doc.MemberonBegin(); iter != doc.MemberonEnd(); iter = doc.MemberonBegin())
+		remove(iter->name.GetString());
+}
+
+int JsonX::size()
+{
+	int size = 0;
+	for (auto iter = doc.MemberonBegin(); iter != doc.MemberonEnd(); iter++)
+		size += 1;
+	return size;
+}
+
+JsonX::JsonX(JsonX &other)
+{
+	doc.SetObject();
+	rapidjson::StringBuffer buf;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
+	other.getDocument().Accept(writer);
+	readFromString(buf.GetString());
+}
+

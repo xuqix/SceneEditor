@@ -117,6 +117,14 @@ public:
 	//当前被选中的对象,用于右键菜单
 	CC_SYNTHESIZE_READONLY(BaseObject*, m_choicedObj, ChoiceObject);
 
+	//保存场景数据到文件
+	bool saveDataToFile(QString filepath);
+private:
+	//获取对象在列表项中的属性数据
+	JsonX* getObjectAttr(std::string type_name);
+	void saveObjectData(JsonX &data, BaseObject *object);
+public:
+
 	//内置默认分辨率
 	const int defaultSizeX = 480;
 	const int defaultSizeY = 320;

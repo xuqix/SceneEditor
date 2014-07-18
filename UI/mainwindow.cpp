@@ -157,14 +157,26 @@ bool MainWindow::saveAs()
 bool MainWindow::publicData()
 {
     qDebug("press");
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+	if (m_curFile.isEmpty())
+	{
+		publicDataAs();
+	}
+	else
+	{
+		cocos2dx_view->saveDataToFile(m_curFile);
+	}
     return true;
 }
 
 bool MainWindow::publicDataAs()
 {
     qDebug("press");
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+
+	m_curFile = QFileDialog::getSaveFileName(this, QStringLiteral("导出场景数据到"), QString(), "JsonFile (*)");
+	if (m_curFile.isEmpty())
+		return false;
+
+	cocos2dx_view->saveDataToFile(m_curFile);
     return true;
 }
 

@@ -3,27 +3,31 @@
 
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QTableWidgetItem>
+#include "../Classes/JsonX.h"
 
 namespace Ui {
 class Dialog;
 }
 class ListWidgetItem;
 
+//属性设置对话框，用于设置操作JsonX对象的数据
 class Dialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = 0);
+    explicit Dialog(JsonX *attr, QWidget *parent = 0);
     ~Dialog();
 
 	//将设置的属性保存到目标
 	void storeAttrToTarget();
+	//显示目标的属性
+	void showAttrFromTarget();
 
-	void setTarget(ListWidgetItem *target) { m_target = target; }
+	void setAttrTarget(JsonX *attr)	{ m_attr = attr; }
 private:
-	//此对话框的服务目标
-	ListWidgetItem *m_target;
+	//对话框设置属性的结构,由外界提供
+	JsonX	*m_attr;
 
 private slots:
     void ok();

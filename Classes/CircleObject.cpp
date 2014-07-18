@@ -5,6 +5,7 @@ USING_NS_CC;
 bool CircleObject::init()
 {
 	setObjectType(ObjectType::CIRCLE_OBJECT);
+	setTypeName("CircleObject");
 	m_drawnode = CCDrawNode::create();
 	addChild(m_drawnode);
 

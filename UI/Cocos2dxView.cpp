@@ -1,6 +1,7 @@
 #include "Cocos2dxView.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../Classes/JsonX.h"
 #include <QtWidgets\QtWidgets>
 #include <QtWidgets\QScrollArea>
 
@@ -326,8 +327,10 @@ void Cocos2dxView::mouseReleaseInCommonEdit(QMouseEvent *event)
 	EditorScene *scene = getEditorScene();
 
 	//Ö´ÐÐ²Ù×÷
+	std::string tpname = std::string(item->text().toLatin1().data());
 	std::string filename = std::string(item->getAbsoluteFilePath().toLatin1().data());
-	OperationManageX->exec(new CommonEditOper(scene->getObjectLayer(), convertToOpenglPoint(QCursor::pos()), filename));
+	OperationManageX->exec(new CommonEditOper(tpname, scene->getObjectLayer(), 
+									convertToOpenglPoint(QCursor::pos()), filename));
 
 	//CommonObject *object = CommonObject::create(CCSprite::create(item->getAbsoluteFilePath().toLatin1().data()));
 	//object->setPosition(convertToOpenglPoint(QCursor::pos()));
@@ -403,3 +406,54 @@ void Cocos2dxView::delChoiceObject()
 	OperationManageX->undo(m_choicedObj);
 	m_choicedObj = NULL;
 }
+
+void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
+{
+	std::string tmp = object->getTypeName();
+	const char *type_name = tmp.c_str();
+	ObjectType type = object->getObjectType();
+
+	if (!getObjectAttr(type_name)) return;
+	if (type == ObjectType::COMMON_OBJECT)
+	{
+		if (!data.has(type_name))
+			data.insertArray(type_name);
+		rapidjson::Value &arr = data[type_name];
+
+//		rapidjson::Value &attr = getObjectAttr(type_name)->getDocument();
+//		arr.PushBack(attr, data.getAllocator());
+		JsonX *a = new JsonX(*getObjectAttr(type_name));
+		JsonX &attr = *a;
+		arr.PushBack((rapidjson::Value&)attr.getDocument(), data.getAllocator());
+	}
+	else if (type == ObjectType::CIRCLE_OBJECT)
+	{
+	}
+	else if (type == ObjectType::POLYGON_OBJECT)
+	{
+	}
+}
+
+bool Cocos2dxView::saveDataToFile(QString filepath)
+{
+	JsonX data;
+	CCArray *object_arr = getEditorScene()->getObjectLayer()->getChildren();
+	CCObject *_obj;
+	CCARRAY_FOREACH(object_arr, _obj)
+	{
+		BaseObject *object = (BaseObject*)_obj;
+		saveObjectData(data, object);
+	}
+	CCLOG("%s", data["LOCK"][0u]["1"].GetString());
+	data.saveToFile(filepath.toLatin1().data());
+	return true;
+}
+
+JsonX* Cocos2dxView::getObjectAttr(std::string type_name)
+{
+	QList<QListWidgetItem *> res = m_listwidget->findItems(type_name.c_str(),Qt::MatchCaseSensitive);
+	if (res.length() <= 0) return NULL;
+	ListWidgetItem *item = (ListWidgetItem*)res.at(0);
+	return &(item->m_attr);
+}
+

@@ -81,6 +81,9 @@ private:
     void createStatusBar();
 
 private:
+	//当前操作的文件名
+	QString	m_curFile;
+	
 	//cocos2dx视图窗口
 	Cocos2dxView	*cocos2dx_view;
 public:

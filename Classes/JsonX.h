@@ -20,6 +20,8 @@
 #include "prettywriter.h"
 #include "stringbuffer.h"
 
+static const char *kTypeNames[] = { "NULL", "False", "True", "Object", "Array", "String", "Number" };
+
 //rapidjson浅封装
 class JsonX
 {
@@ -27,6 +29,7 @@ public:
 	typedef rapidjson::Value Value;
 
 	JsonX();
+	JsonX(JsonX &other);
 	JsonX(std::string file_name);
 
 	bool read(std::string file_name);
@@ -53,10 +56,13 @@ public:
 	//删除操作
 	bool remove(const char *key);
 	//清除数据
-	void clear() { doc.Clear(); }
+	void clear();
+	//计算大小
+	int size();
 
 	//查找成员
 	Value& find(const char *name);
+	bool has(const char *key);
 
 	//获取文档对象
 	rapidjson::Document& getDocument();
