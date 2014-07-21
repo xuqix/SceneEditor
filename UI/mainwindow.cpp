@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	ui->toolButtonDelete->setVisible(false);
 
+	ui->typeName->setDisabled(true);
+
 	//设置背景色
 	QPalette pal; 
 	pal.setColor(ui->scrollArea->backgroundRole(), Qt::gray);
@@ -50,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->pushButtonComplete, SIGNAL(clicked()), this, SLOT(completeShapeEdit()));
     connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
+
+	connect(ui->typeName, SIGNAL(textChanged(QString)), this, SLOT(changeTypeName(QString)));
 
 	//test
 	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
@@ -267,6 +271,7 @@ void MainWindow::commonEdit()
 
 void MainWindow::choiceEdit(bool checked)
 {
+	if (!checked) { ui->typeName->setText(""); ui->typeName->setDisabled(true); }
 	if (!checked) cocos2dx_view->stopAllBlink();
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
 	cocos2dx_view->setCursor( checked ? Qt::ClosedHandCursor : Qt::ArrowCursor);
@@ -327,6 +332,20 @@ void MainWindow::changeSizeY(int y)
 	cocos2dx_view->setViewGeometry(r);
 }
 
+void MainWindow::changeTypeName(QString name)
+{
+	qDebug("%s", name.toLatin1().data());
+	if (name.isEmpty()) return;
+	if (ModeStateX->getPrimaryMode() == ModeState::EditMode && ModeStateX->getSubMode() == ModeState::ChoiceEdit)
+	{
+		cocos2dx_view->getChoiceObject()->setTypeName(name.toLatin1().data());
+		if (cocos2dx_view->getChoiceObject()->getObjectType() == ObjectType::COMMON_OBJECT)
+			ui->typeName->setDisabled(true);
+		else
+			ui->typeName->setDisabled(false);
+	}
+}
+
 void MainWindow::enterEvent(QEvent *e)
 {
 	//qDebug("%d %d", QCursor::pos().rx(), QCursor::pos().ry());
@@ -362,4 +381,6 @@ void MainWindow::cancelShapeEdit()
 	if (cocos2dx_view->getCurPolyOper())
 		cocos2dx_view->getCurPolyOper()->popPoint();
 }
+
+
 

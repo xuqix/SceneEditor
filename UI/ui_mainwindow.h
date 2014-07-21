@@ -86,6 +86,8 @@ public:
     QLabel *label_2;
     QDoubleSpinBox *rotateSpinBox;
     QLabel *label;
+    QLabel *label_7;
+    QLineEdit *typeName;
     QGroupBox *groupBox_4;
     QCheckBox *checkBoxGrid;
     QLabel *label_6;
@@ -356,8 +358,13 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy4);
         groupBox_2->setMinimumSize(QSize(0, 0));
-        groupBox_2->setMaximumSize(QSize(168, 16777215));
+        groupBox_2->setMaximumSize(QSize(138, 16777215));
         verticalLayout_2 = new QVBoxLayout(groupBox_2);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -377,8 +384,10 @@ public:
 
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
+        sizePolicy4.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy4);
         groupBox->setMinimumSize(QSize(0, 0));
-        groupBox->setMaximumSize(QSize(168, 16777215));
+        groupBox->setMaximumSize(QSize(138, 16777215));
         gridLayout = new QGridLayout(groupBox);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -410,11 +419,28 @@ public:
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
+        label_7 = new QLabel(groupBox);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        sizePolicy3.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
+        label_7->setSizePolicy(sizePolicy3);
+
+        gridLayout->addWidget(label_7, 2, 0, 1, 1);
+
+        typeName = new QLineEdit(groupBox);
+        typeName->setObjectName(QStringLiteral("typeName"));
+        sizePolicy1.setHeightForWidth(typeName->sizePolicy().hasHeightForWidth());
+        typeName->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(typeName, 2, 1, 1, 1);
+
 
         verticalLayout_4->addWidget(groupBox);
 
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        sizePolicy4.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
+        groupBox_4->setSizePolicy(sizePolicy4);
+        groupBox_4->setMaximumSize(QSize(138, 16777215));
         checkBoxGrid = new QCheckBox(groupBox_4);
         checkBoxGrid->setObjectName(QStringLiteral("checkBoxGrid"));
         checkBoxGrid->setGeometry(QRect(10, 20, 71, 16));
@@ -575,11 +601,12 @@ public:
 #ifndef QT_NO_TOOLTIP
         scaleSpinBox->setToolTip(QApplication::translate("MainWindow", "\350\256\276\347\275\256\351\200\211\344\270\255\347\232\204\347\262\276\347\201\265\347\274\251\346\224\276\346\257\224", 0));
 #endif // QT_NO_TOOLTIP
-        label_2->setText(QApplication::translate("MainWindow", "Scale", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Scale:", 0));
 #ifndef QT_NO_TOOLTIP
         rotateSpinBox->setToolTip(QApplication::translate("MainWindow", "\350\256\276\347\275\256\351\200\211\344\270\255\347\232\204\347\262\276\347\201\265\346\227\213\350\275\254\350\247\222\345\272\246", 0));
 #endif // QT_NO_TOOLTIP
         label->setText(QApplication::translate("MainWindow", "Rotate:", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Type:", 0));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\351\200\211\351\241\271\350\256\276\347\275\256", 0));
         checkBoxGrid->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\275\221\346\240\274", 0));
         label_6->setText(QApplication::translate("MainWindow", "\347\275\221\346\240\274\346\225\260\357\274\232", 0));

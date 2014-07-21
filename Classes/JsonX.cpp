@@ -20,6 +20,11 @@ JsonX::JsonX(std::string file_name)
     read(file_name);
 }
 
+JsonX::JsonX(const char *json_str)
+{
+	readFromString(json_str);
+}
+
 bool JsonX::read(std::string file_name)
 {
 	unsigned long size;

@@ -31,6 +31,7 @@ public:
 	JsonX();
 	JsonX(JsonX &other);
 	JsonX(std::string file_name);
+	JsonX(const char *json_str);
 
 	bool read(std::string file_name);
 

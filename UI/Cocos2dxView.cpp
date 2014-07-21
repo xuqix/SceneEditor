@@ -249,10 +249,22 @@ void Cocos2dxView::setBackground(QString filename)
 void Cocos2dxView::mousePressInBrowse(QMouseEvent *event)
 {
 	qDebug("press browse");
+	m_prePosition = event->localPos();
 }
 void Cocos2dxView::mouseMoveInBrowse(QMouseEvent *event)
 {
 	qDebug("move browse");
+	QPointF curPos = event->localPos();
+	QPointF diff = curPos - m_prePosition;
+
+	QScrollArea *scroll = (QScrollArea*)this->parent()->parent();
+
+	//scroll->horizontalScrollBar()->setValue(scroll->horizontalScrollBar()->value() + diff.x());
+	//scroll->verticalScrollBar()->setValue(scroll->verticalScrollBar()->value() + diff.y());
+
+	qDebug("test:%d %d", scroll->horizontalScrollBar()->minimum(), scroll->horizontalScrollBar()->maximum());
+	qDebug("test2:%d %d", scroll->verticalScrollBar()->minimum(), scroll->verticalScrollBar()->maximum());
+	m_prePosition = curPos;
 }
 void Cocos2dxView::mouseReleaseInBrowse(QMouseEvent *event)
 {
@@ -365,6 +377,8 @@ void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->rotateSpinBox->setValue(m_choicedObj->getRotation());
 	//设置缩放大小控件值
 	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->scaleSpinBox->setValue(m_choicedObj->getScale());
+	//设置对象类型名
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->typeName->setText(m_choicedObj->getTypeName().c_str());
 }
 
 void Cocos2dxView::mouseMoveInChoiceEdit(QMouseEvent *event)
@@ -413,25 +427,63 @@ void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
 	const char *type_name = tmp.c_str();
 	ObjectType type = object->getObjectType();
 
-	if (!getObjectAttr(type_name)) return;
+	if (!data.has(type_name))
+		data.insertArray(type_name);
+	//存储同一类型对象的数组对象
+	rapidjson::Value &arr = data[type_name];
 	if (type == ObjectType::COMMON_OBJECT)
 	{
-		if (!data.has(type_name))
-			data.insertArray(type_name);
-		rapidjson::Value &arr = data[type_name];
+		if (!getObjectAttr(type_name)) return;
 
-//		rapidjson::Value &attr = getObjectAttr(type_name)->getDocument();
-//		arr.PushBack(attr, data.getAllocator());
-		JsonX *a = new JsonX(*getObjectAttr(type_name));
-		JsonX &attr = *a;
-		arr.PushBack((rapidjson::Value&)attr.getDocument(), data.getAllocator());
+		rapidjson::StringBuffer buf;
+		rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
+		getObjectAttr(type_name)->getDocument().Accept(writer);
+		rapidjson::Document attr(&data.getAllocator());
+		attr.Parse<0>(buf.GetString());
+
+		arr.PushBack((rapidjson::Value&)attr, data.getAllocator());
 	}
 	else if (type == ObjectType::CIRCLE_OBJECT)
 	{
+		CircleObject *circle = (CircleObject *)object;
+		rapidjson::Document attr(&data.getAllocator()); 
+		attr.SetObject();
+		rapidjson::Value point(rapidjson::kObjectType);
+		point.AddMember("x", circle->getCenterPoint().x, data.getAllocator());
+		point.AddMember("y", circle->getCenterPoint().y, data.getAllocator());
+		attr.AddMember("center", point, data.getAllocator());
+		attr.AddMember("radius", circle->getRadius(), data.getAllocator());
+
+		arr.PushBack((rapidjson::Value&)attr, data.getAllocator());
 	}
 	else if (type == ObjectType::POLYGON_OBJECT)
 	{
+		PolygonObject *polygon = (PolygonObject*)object;
+		rapidjson::Document attr(&data.getAllocator());
+		attr.SetObject();
+
+		//存储形状点集
+		rapidjson::Value shape_arr(rapidjson::kArrayType);//shape_arr.SetArray()
+		for (auto pos : polygon->getPolyPoints())
+		{
+			rapidjson::Value point(rapidjson::kObjectType);
+			point.AddMember("x", pos.x, data.getAllocator());
+			point.AddMember("y", pos.y, data.getAllocator());
+			shape_arr.PushBack(point, data.getAllocator());
+		}
+		attr.AddMember("shape", shape_arr, data.getAllocator());
+
+		arr.PushBack((rapidjson::Value&)attr, data.getAllocator());
 	}
+
+	//保存对象常规属性
+	//rapidjson::Value &arr = data[type_name];
+	rapidjson::Value v(rapidjson::kObjectType);
+	v.AddMember("x", object->getPositionX(), data.getAllocator());
+	v.AddMember("y", object->getPositionY(), data.getAllocator());
+	arr[arr.Size() - 1].AddMember("position", v, data.getAllocator());
+	arr[arr.Size() - 1].AddMember("rotate", object->getRotation(), data.getAllocator());
+	arr[arr.Size() - 1].AddMember("scale", object->getScale(), data.getAllocator());
 }
 
 bool Cocos2dxView::saveDataToFile(QString filepath)
@@ -444,7 +496,6 @@ bool Cocos2dxView::saveDataToFile(QString filepath)
 		BaseObject *object = (BaseObject*)_obj;
 		saveObjectData(data, object);
 	}
-	CCLOG("%s", data["LOCK"][0u]["1"].GetString());
 	data.saveToFile(filepath.toLatin1().data());
 	return true;
 }

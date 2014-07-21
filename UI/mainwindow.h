@@ -44,6 +44,7 @@ private slots:
 
 	void changeSizeX(int x);
 	void changeSizeY(int y);
+	void changeTypeName(QString name);
 
     //编辑模式的多种编辑方式
 	//圆形编辑

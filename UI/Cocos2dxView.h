@@ -72,6 +72,7 @@ public:
 	void mousePressInBrowse(QMouseEvent *event);
 	void mouseMoveInBrowse(QMouseEvent *event);
 	void mouseReleaseInBrowse(QMouseEvent *event);
+	QPointF	m_prePosition;
 	//Բ�α༭ģʽ
 	void mousePressInCircleEdit(QMouseEvent *event);
 	void mouseMoveInCircleEdit(QMouseEvent *event);

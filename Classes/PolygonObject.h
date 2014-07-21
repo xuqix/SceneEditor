@@ -11,15 +11,15 @@ public:
 	CREATE_OBJECT(PolygonObject);
 
 	bool init() override;
+
+	//对点的特殊处理
+	bool containsInDot(cocos2d::CCPoint world_point);
 	
+	//对直线的特殊处理
+	bool containsInLine(cocos2d::CCPoint world_point);
+
 	bool containsTouchLocation(cocos2d::CCPoint world_point) override;
-	/*
-	bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
-	{
-		CCPoint p = pTouch->getLocation();
-		CCLOG("%f %f", p.x, p.y);
-		return true;
-	}*/
+
 	void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
 	void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
 
@@ -31,7 +31,7 @@ public:
 	void drawPolygon(bool solid = true);
 
 	//多边形的顶点数组
-	std::vector<cocos2d::CCPoint> m_points;
+	CC_SYNTHESIZE_READONLY_PASS_BY_REF(std::vector<cocos2d::CCPoint>, m_points, PolyPoints);
 
 	//绘制多边形的节点
 	cocos2d::CCDrawNode *m_drawnode;
