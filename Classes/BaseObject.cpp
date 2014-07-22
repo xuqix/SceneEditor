@@ -16,6 +16,7 @@ BaseObject::~BaseObject()
 bool BaseObject::init()
 {
 	setObjectType(ObjectType::BASE_OBJECT);
+	setIsDrag(true);
 	return true;
 }
 
@@ -38,7 +39,7 @@ bool BaseObject::containsTouchLocation(CCPoint world_point)
 
 bool BaseObject::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-	return containsTouchLocation(pTouch->getLocation());
+	return getIsDrag() && containsTouchLocation(pTouch->getLocation());
 }
 void BaseObject::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {

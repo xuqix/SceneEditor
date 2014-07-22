@@ -46,9 +46,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->sizeX, SIGNAL(valueChanged(int)), this, SLOT(changeSizeX(int)));
     connect(ui->sizeY, SIGNAL(valueChanged(int)), this, SLOT(changeSizeY(int)));
+	connect(ui->posxSpinBox, SIGNAL(valueChanged(int)), this, SLOT(changePosX(int)));
+	connect(ui->posySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changePosY(int)));
 
 	connect(ui->checkBoxGrid, SIGNAL(clicked(bool)),this, SLOT(showGrid(bool)));
     connect(ui->spinBoxGridNum, SIGNAL(valueChanged(int)), this, SLOT(gridNumChange(int)));
+	connect(ui->checkBoxDragShape, SIGNAL(clicked(bool)), this, SLOT(shapeDrag(bool)));
 
 	connect(ui->pushButtonComplete, SIGNAL(clicked()), this, SLOT(completeShapeEdit()));
     connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
@@ -316,6 +319,22 @@ void MainWindow::enterEditMode()
 	ui->toolButtonPaint->click();
 }
 
+void MainWindow::changePosX(int x)
+{
+	qDebug("1");
+	BaseObject *obj = cocos2dx_view->getChoiceObject();
+	if (obj && obj->getObjectType()==ObjectType::COMMON_OBJECT)
+		cocos2dx_view->getChoiceObject()->setPositionX(x);
+}
+
+void MainWindow::changePosY(int y)
+{
+	qDebug("2");
+	BaseObject *obj = cocos2dx_view->getChoiceObject();
+	if (obj && obj->getObjectType()==ObjectType::COMMON_OBJECT)
+		cocos2dx_view->getChoiceObject()->setPositionY(y);
+}
+
 void MainWindow::changeSizeX(int x)
 {
 	qDebug("%d", x);
@@ -382,5 +401,15 @@ void MainWindow::cancelShapeEdit()
 		cocos2dx_view->getCurPolyOper()->popPoint();
 }
 
-
+void MainWindow::shapeDrag(bool isDrag)
+{
+	CCArray *children = cocos2dx_view->getEditorScene()->getObjectLayer()->getChildren();
+	CCObject *_obj;
+	CCARRAY_FOREACH(children, _obj)
+	{
+		BaseObject *object = (BaseObject*)_obj;
+		if (object->getObjectType() == ObjectType::CIRCLE_OBJECT || object->getObjectType() == ObjectType::POLYGON_OBJECT)
+			object->setIsDrag(isDrag);
+	}
+}
 

@@ -64,6 +64,8 @@ public:
 	void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent) override;
     
 protected:
+	//是否启用拖拽功能
+	CC_SYNTHESIZE(bool, m_isDrag, IsDrag);
 	CC_SYNTHESIZE(ObjectType, m_type, ObjectType);
 	//类型名，不是指上面的对象类型的类型名
 	CC_SYNTHESIZE(std::string, m_TypeName, TypeName);

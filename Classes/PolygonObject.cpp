@@ -6,6 +6,7 @@ USING_NS_CC;
 bool PolygonObject::init()
 {
 	registerWithTouchDispatcher();
+	setIsDrag(false);
 	setObjectType(ObjectType::POLYGON_OBJECT);
 	setTypeName("PolygonObject");
 	m_drawnode = CCDrawNode::create();

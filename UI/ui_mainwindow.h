@@ -82,16 +82,22 @@ public:
     QRadioButton *radioButtonEdit;
     QGroupBox *groupBox;
     QGridLayout *gridLayout;
+    QSpinBox *posySpinBox;
     QDoubleSpinBox *scaleSpinBox;
     QLabel *label_2;
     QDoubleSpinBox *rotateSpinBox;
     QLabel *label;
     QLabel *label_7;
     QLineEdit *typeName;
+    QSpinBox *posxSpinBox;
+    QLabel *label_8;
+    QLabel *label_9;
     QGroupBox *groupBox_4;
     QCheckBox *checkBoxGrid;
     QLabel *label_6;
     QSpinBox *spinBoxGridNum;
+    QLineEdit *lineEdit_2;
+    QCheckBox *checkBoxDragShape;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuE_dit;
@@ -392,18 +398,25 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        posySpinBox = new QSpinBox(groupBox);
+        posySpinBox->setObjectName(QStringLiteral("posySpinBox"));
+        posySpinBox->setMinimum(-9999);
+        posySpinBox->setMaximum(9999);
+
+        gridLayout->addWidget(posySpinBox, 2, 1, 1, 1);
+
         scaleSpinBox = new QDoubleSpinBox(groupBox);
         scaleSpinBox->setObjectName(QStringLiteral("scaleSpinBox"));
         scaleSpinBox->setMaximum(99);
         scaleSpinBox->setSingleStep(0.2);
         scaleSpinBox->setValue(1);
 
-        gridLayout->addWidget(scaleSpinBox, 1, 1, 1, 1);
+        gridLayout->addWidget(scaleSpinBox, 5, 1, 1, 1);
 
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        gridLayout->addWidget(label_2, 5, 0, 1, 1);
 
         rotateSpinBox = new QDoubleSpinBox(groupBox);
         rotateSpinBox->setObjectName(QStringLiteral("rotateSpinBox"));
@@ -412,26 +425,45 @@ public:
         rotateSpinBox->setMaximum(360);
         rotateSpinBox->setSingleStep(5);
 
-        gridLayout->addWidget(rotateSpinBox, 0, 1, 1, 1);
+        gridLayout->addWidget(rotateSpinBox, 4, 1, 1, 1);
 
         label = new QLabel(groupBox);
         label->setObjectName(QStringLiteral("label"));
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        gridLayout->addWidget(label, 4, 0, 1, 1);
 
         label_7 = new QLabel(groupBox);
         label_7->setObjectName(QStringLiteral("label_7"));
         sizePolicy3.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
         label_7->setSizePolicy(sizePolicy3);
 
-        gridLayout->addWidget(label_7, 2, 0, 1, 1);
+        gridLayout->addWidget(label_7, 6, 0, 1, 1);
 
         typeName = new QLineEdit(groupBox);
         typeName->setObjectName(QStringLiteral("typeName"));
         sizePolicy1.setHeightForWidth(typeName->sizePolicy().hasHeightForWidth());
         typeName->setSizePolicy(sizePolicy1);
 
-        gridLayout->addWidget(typeName, 2, 1, 1, 1);
+        gridLayout->addWidget(typeName, 6, 1, 1, 1);
+
+        posxSpinBox = new QSpinBox(groupBox);
+        posxSpinBox->setObjectName(QStringLiteral("posxSpinBox"));
+        posxSpinBox->setMinimum(-9999);
+        posxSpinBox->setMaximum(9999);
+
+        gridLayout->addWidget(posxSpinBox, 1, 1, 1, 1);
+
+        label_8 = new QLabel(groupBox);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        sizePolicy3.setHeightForWidth(label_8->sizePolicy().hasHeightForWidth());
+        label_8->setSizePolicy(sizePolicy3);
+
+        gridLayout->addWidget(label_8, 1, 0, 1, 1);
+
+        label_9 = new QLabel(groupBox);
+        label_9->setObjectName(QStringLiteral("label_9"));
+
+        gridLayout->addWidget(label_9, 2, 0, 1, 1);
 
 
         verticalLayout_4->addWidget(groupBox);
@@ -451,6 +483,12 @@ public:
         spinBoxGridNum->setObjectName(QStringLiteral("spinBoxGridNum"));
         spinBoxGridNum->setGeometry(QRect(70, 50, 42, 22));
         spinBoxGridNum->setValue(10);
+        lineEdit_2 = new QLineEdit(groupBox_4);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        lineEdit_2->setGeometry(QRect(20, 80, 51, 20));
+        checkBoxDragShape = new QCheckBox(groupBox_4);
+        checkBoxDragShape->setObjectName(QStringLiteral("checkBoxDragShape"));
+        checkBoxDragShape->setGeometry(QRect(10, 120, 101, 16));
 
         verticalLayout_4->addWidget(groupBox_4);
 
@@ -607,9 +645,12 @@ public:
 #endif // QT_NO_TOOLTIP
         label->setText(QApplication::translate("MainWindow", "Rotate:", 0));
         label_7->setText(QApplication::translate("MainWindow", "Type:", 0));
+        label_8->setText(QApplication::translate("MainWindow", "PosX:", 0));
+        label_9->setText(QApplication::translate("MainWindow", "PosY:", 0));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\351\200\211\351\241\271\350\256\276\347\275\256", 0));
         checkBoxGrid->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\275\221\346\240\274", 0));
         label_6->setText(QApplication::translate("MainWindow", "\347\275\221\346\240\274\346\225\260\357\274\232", 0));
+        checkBoxDragShape->setText(QApplication::translate("MainWindow", "\345\220\257\347\224\250\345\275\242\347\212\266\346\213\226\346\213\275", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "F&ile", 0));
         menuE_dit->setTitle(QApplication::translate("MainWindow", "E&dit", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

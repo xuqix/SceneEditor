@@ -256,16 +256,15 @@ void Cocos2dxView::mouseMoveInBrowse(QMouseEvent *event)
 	qDebug("move browse");
 	QPointF curPos = event->localPos();
 	QPointF diff = curPos - m_prePosition;
-
+	qDebug("diff: %f %f", diff.x(), diff.y());
 	QScrollArea *scroll = (QScrollArea*)this->parent()->parent();
 
-	//scroll->horizontalScrollBar()->setValue(scroll->horizontalScrollBar()->value() + diff.x());
-	//scroll->verticalScrollBar()->setValue(scroll->verticalScrollBar()->value() + diff.y());
+	scroll->horizontalScrollBar()->setValue(scroll->horizontalScrollBar()->value() - diff.x());
+	scroll->verticalScrollBar()->setValue(scroll->verticalScrollBar()->value() - diff.y());
 
-	qDebug("test:%d %d", scroll->horizontalScrollBar()->minimum(), scroll->horizontalScrollBar()->maximum());
-	qDebug("test2:%d %d", scroll->verticalScrollBar()->minimum(), scroll->verticalScrollBar()->maximum());
 	m_prePosition = curPos;
 }
+
 void Cocos2dxView::mouseReleaseInBrowse(QMouseEvent *event)
 {
 	qDebug("release browse");
@@ -373,6 +372,19 @@ void Cocos2dxView::mousePressInChoiceEdit(QMouseEvent *event)
 
 	//qDebug("test:%s ", this->parent()->parent()->parent()->parent()->objectName().toLatin1().data());
 	//用qtdesigner拉出来的蛋疼的父子关系
+	//设置对象位置
+	bool disable = true;
+	CCPoint point= ccp(0,0);
+	if (m_choicedObj->getObjectType() == ObjectType::COMMON_OBJECT)
+	{
+		point = m_choicedObj->getPosition();
+		disable = false;
+	}
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posxSpinBox->setDisabled(disable);
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posySpinBox->setDisabled(disable);
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posxSpinBox->setValue(point.x);
+	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posySpinBox->setValue(point.y);
+
 	//设置旋转角度控件值
 	((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->rotateSpinBox->setValue(m_choicedObj->getRotation());
 	//设置缩放大小控件值
@@ -390,8 +402,16 @@ void Cocos2dxView::mouseMoveInChoiceEdit(QMouseEvent *event)
 	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
 	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
+
 void Cocos2dxView::mouseReleaseInChoiceEdit(QMouseEvent *event)
 {
+	if (m_choicedObj && m_choicedObj->getObjectType()==ObjectType::COMMON_OBJECT)
+	{
+		CCPoint point = m_choicedObj->getPosition();
+		((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posxSpinBox->setValue(point.x);
+		((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->posySpinBox->setValue(point.y);
+	}
+
 	QPointF	pos = event->localPos();
 	//组装windows消息
 	UINT message  = WM_LBUTTONUP;

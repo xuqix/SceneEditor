@@ -42,6 +42,8 @@ private slots:
     void rotateChange(double rotate);
     void scaleChange (double scale);
 
+	void changePosX(int x);
+	void changePosY(int y);
 	void changeSizeX(int x);
 	void changeSizeY(int y);
 	void changeTypeName(QString name);
@@ -70,6 +72,8 @@ private slots:
 
 	void showGrid(bool show); 
 	void gridNumChange(int num); 
+	//形状拖拽启用
+	void shapeDrag(bool isDrag);
 	
 public slots:
     //在场景中添加精灵

@@ -4,6 +4,7 @@ USING_NS_CC;
 
 bool CircleObject::init()
 {
+	setIsDrag(false);
 	setObjectType(ObjectType::CIRCLE_OBJECT);
 	setTypeName("CircleObject");
 	m_drawnode = CCDrawNode::create();
