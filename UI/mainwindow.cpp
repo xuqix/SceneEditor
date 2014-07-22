@@ -2,11 +2,23 @@
 #include "ui_mainwindow.h"
 #include "OperatioManage.h"
 
+void MainWindow::createTip()
+{
+	ui->listWidget->setStatusTip(QStringLiteral("加载png图片为列表精灵对象,每项的图标为精灵缩略图,\
+		文本为精灵类型名,支持不同图片使用同一类型名."));
+	ui->posxSpinBox->setToolTip(QStringLiteral("设置选中对象的X轴坐标"));
+	ui->posySpinBox->setToolTip(QStringLiteral("设置选中对象的Y轴坐标"));
+	ui->rotateSpinBox->setToolTip(QStringLiteral("设置选中对象的旋转角"));
+	ui->scaleSpinBox->setToolTip(QStringLiteral("设置选中对象的缩放比"));
+	ui->typeName->setToolTip(QStringLiteral("设置选中(非精灵)对象的类型名"));
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 	ui->scrollArea->setWidgetResizable(false);
 	ui->scrollArea->takeWidget();
 	ui->scrollArea->setAlignment(Qt::AlignCenter);
@@ -73,10 +85,12 @@ MainWindow::MainWindow(QWidget *parent) :
     createMenus();
     createToolBars();
     createStatusBar();
+	createTip();
 
 	ui->radioButtonBrowse->clicked(true);
 //	ModeStateX->setPrimaryMode(ModeState::BrowseMode);
 }
+
 
 void MainWindow::createActions()
 {

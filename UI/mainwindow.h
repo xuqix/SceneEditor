@@ -84,6 +84,7 @@ private:
     void createMenus();
     void createToolBars();
     void createStatusBar();
+	void createTip();
 
 private:
 	//当前操作的文件名

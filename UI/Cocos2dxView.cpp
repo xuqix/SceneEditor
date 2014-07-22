@@ -26,6 +26,7 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	m_mouseSprite = NULL;
 	m_curPolyOper = NULL;
 	m_choicedObj = NULL;
+	m_bkFileName = "HelloWorld.png";
 	return;
 }
 
@@ -188,7 +189,9 @@ void Cocos2dxView::setBackground(QString filename)
 	cocos2d::CCSprite *spr = cocos2d::CCSprite::create(filename.toLatin1().data());
 	getEditorScene()->setBackground(spr);
 	getEditorScene()->addChild(spr,-1);
-//	getEditorScene()->getBackground()->setTexture(CCTextureCache::sharedTextureCache()->addImage(filename.toLatin1().data()));
+
+	QFileInfo file(filename);
+	setBackgroundFileName(std::string(file.fileName().toLatin1().data()));
 }
 
 //ä¯ÀÀÄ£Ê½
@@ -462,6 +465,7 @@ bool Cocos2dxView::saveDataToFile(QString filepath)
 		BaseObject *object = (BaseObject*)_obj;
 		saveObjectData(data, object);
 	}
+	data.insert("background_filename", m_bkFileName.c_str());
 	data.saveToFile(filepath.toLatin1().data());
 	return true;
 }

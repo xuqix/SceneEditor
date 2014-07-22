@@ -96,7 +96,6 @@ public:
     QCheckBox *checkBoxGrid;
     QLabel *label_6;
     QSpinBox *spinBoxGridNum;
-    QLineEdit *lineEdit_2;
     QCheckBox *checkBoxDragShape;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -483,12 +482,9 @@ public:
         spinBoxGridNum->setObjectName(QStringLiteral("spinBoxGridNum"));
         spinBoxGridNum->setGeometry(QRect(70, 50, 42, 22));
         spinBoxGridNum->setValue(10);
-        lineEdit_2 = new QLineEdit(groupBox_4);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(20, 80, 51, 20));
         checkBoxDragShape = new QCheckBox(groupBox_4);
         checkBoxDragShape->setObjectName(QStringLiteral("checkBoxDragShape"));
-        checkBoxDragShape->setGeometry(QRect(10, 120, 101, 16));
+        checkBoxDragShape->setGeometry(QRect(10, 90, 101, 16));
 
         verticalLayout_4->addWidget(groupBox_4);
 

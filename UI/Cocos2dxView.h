@@ -36,6 +36,7 @@ public:
 	void setViewGeometry(const QRect &rect);
 	//设置视图背景
 	void setBackground(QString filename);
+	CC_SYNTHESIZE(std::string, m_bkFileName, BackgroundFileName);
 	//获取视图层指针
 	EditorScene* getEditorScene() {return (EditorScene*)CCDirector::sharedDirector()->getRunningScene()->getChildByTag(view_tag);}
 
