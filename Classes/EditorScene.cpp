@@ -31,7 +31,6 @@ bool EditorScene::init()
     {
         return false;
     }
-	//this->setTouchEnabled(true);
 	m_gridview = NULL;
 
     m_background	= CCSprite::create("HelloWorld.png");
@@ -50,14 +49,12 @@ bool EditorScene::init()
 bool EditorScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
 	CCPoint p = pTouch->getLocation();
-//	CCLOG("%f %f", p.x, p.y);
 	return true;
 }
 
 void EditorScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
 	CCPoint p = pTouch->getLocation();
-//	CCLOG("%f %f", p.x, p.y);
 }
 
 void EditorScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

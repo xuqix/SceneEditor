@@ -63,7 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
     ListWidgetItem *item1;
     item1 = new ListWidgetItem(info);
-
     item1->setIcon(QIcon(":/images/change.png"));
     item1->setSizeHint(QSize(100,100));
     item1->setText("LOCK");
@@ -136,34 +135,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::newFile()
 {
-    qDebug("press");
     QMessageBox::warning(this, "tip", "wait to do -_-");
 }
 
 void MainWindow::open()
 {
-    qDebug("press");
     QMessageBox::warning(this, "tip", "wait to do -_-");
 }
 
 bool MainWindow::save()
 {
 	delete cocos2dx_view;
-    qDebug("press");
     QMessageBox::warning(this, "tip", "wait to do -_-");
     return true;
 }
 
 bool MainWindow::saveAs()
 {
-    qDebug("press");
     QMessageBox::warning(this, "tip", "wait to do -_-");
     return true;
 }
 
 bool MainWindow::publicData()
 {
-    qDebug("press");
 	if (m_curFile.isEmpty())
 	{
 		publicDataAs();
@@ -177,8 +171,6 @@ bool MainWindow::publicData()
 
 bool MainWindow::publicDataAs()
 {
-    qDebug("press");
-
 	m_curFile = QFileDialog::getSaveFileName(this, QStringLiteral("导出场景数据到"), QString(), "JsonFile (*)");
 	if (m_curFile.isEmpty())
 		return false;
@@ -189,24 +181,20 @@ bool MainWindow::publicDataAs()
 
 void MainWindow::setSceneBackground()
 {
-	qDebug("setbk");
     QString filename =  QFileDialog::getOpenFileName(this, QStringLiteral("设置场景背景"), QString(),
                                                       "Images (*.png *.jpg)");
 
-    qDebug("%s", filename.toLatin1().data());
     if(!filename.isEmpty())
     {
 		cocos2dx_view->setBackground(filename);
-		qDebug("ok");
     }
 }
 
 bool MainWindow::addSprites()
 {
-    qDebug("press");
     QStringList list =  QFileDialog::getOpenFileNames(this, QStringLiteral("添加关卡元素"), QString(),
                                                       "Images (*.bmp *.tiff *.gif *.png *.jpg)");
-    qDebug("%d", list.length());
+
     if(list.length() > 0)
     {
         for(QString &path : list)
@@ -226,7 +214,6 @@ void MainWindow::about()
 
 void MainWindow::rotateChange(double rotate)
 {
-    qDebug("%lf", rotate);
 	BaseObject *object = cocos2dx_view->getChoiceObject();
 	if (!object) return;
 	if ((object->getObjectType() == ObjectType::COMMON_OBJECT) && object->getisBlink())
@@ -235,7 +222,6 @@ void MainWindow::rotateChange(double rotate)
 
 void MainWindow::scaleChange(double scale)
 {
-    qDebug("%lf", scale);
 	BaseObject *object = cocos2dx_view->getChoiceObject();
 	if (!object) return;
 	if ((object->getObjectType() == ObjectType::COMMON_OBJECT) && object->getisBlink())
@@ -244,13 +230,12 @@ void MainWindow::scaleChange(double scale)
 
 void MainWindow::addSpriteToScene()
 {
-   qDebug("%d", 5);
+
 }
 
 void MainWindow::circleEdit()
 {
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
-    qDebug("circle");
 	ModeStateX->setSubMode(ModeState::CircleEdit);
 }
 
@@ -261,14 +246,12 @@ void MainWindow::polygonEdit(bool checked)
 	ui->pushButtonComplete->setVisible(checked);
 	ui->pushButtonCancel->setVisible(checked);
 
-    qDebug("polygon");
 	if(checked)	ModeStateX->setSubMode(ModeState::PolygonEdit);
 }
 
 void MainWindow::commonEdit()
 {
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode) return;
-    qDebug("common");
 	ModeStateX->setSubMode(ModeState::CommonEdit);
 }
 
@@ -285,14 +268,11 @@ void MainWindow::choiceEdit(bool checked)
 
 void MainWindow::deleteSelected()
 {
-    qDebug("delete");
+
 }
 
 void MainWindow::undoEdit()
 {
-	qDebug("undo");
-	//int res = QMessageBox::question(this, QStringLiteral("警告!"),QStringLiteral("你确定要删除此项吗?"),  QMessageBox::Yes, QMessageBox::No);
-	//if (res == QMessageBox::Yes);
 	//撤销操作
 	cocos2dx_view->setCurPolyOper(NULL);
 	if(!OperationManageX->undo())
@@ -321,7 +301,6 @@ void MainWindow::enterEditMode()
 
 void MainWindow::changePosX(int x)
 {
-	qDebug("1");
 	BaseObject *obj = cocos2dx_view->getChoiceObject();
 	if (obj && obj->getObjectType()==ObjectType::COMMON_OBJECT)
 		cocos2dx_view->getChoiceObject()->setPositionX(x);
@@ -329,7 +308,6 @@ void MainWindow::changePosX(int x)
 
 void MainWindow::changePosY(int y)
 {
-	qDebug("2");
 	BaseObject *obj = cocos2dx_view->getChoiceObject();
 	if (obj && obj->getObjectType()==ObjectType::COMMON_OBJECT)
 		cocos2dx_view->getChoiceObject()->setPositionY(y);
@@ -337,7 +315,6 @@ void MainWindow::changePosY(int y)
 
 void MainWindow::changeSizeX(int x)
 {
-	qDebug("%d", x);
 	QRect r = cocos2dx_view->geometry();
 	r.setWidth(x);
 	cocos2dx_view->setViewGeometry(r);
@@ -345,7 +322,6 @@ void MainWindow::changeSizeX(int x)
 
 void MainWindow::changeSizeY(int y)
 {
-	qDebug("%d", y);
 	QRect r = cocos2dx_view->geometry();
 	r.setHeight(y);
 	cocos2dx_view->setViewGeometry(r);
@@ -353,7 +329,6 @@ void MainWindow::changeSizeY(int y)
 
 void MainWindow::changeTypeName(QString name)
 {
-	qDebug("%s", name.toLatin1().data());
 	if (name.isEmpty()) return;
 	if (ModeStateX->getPrimaryMode() == ModeState::EditMode && ModeStateX->getSubMode() == ModeState::ChoiceEdit)
 	{
@@ -389,13 +364,11 @@ void MainWindow::gridNumChange(int num)
 
 void MainWindow::completeShapeEdit()
 {
-    qDebug("compelete");
 	cocos2dx_view->setCurPolyOper(NULL);
 }
 
 void MainWindow::cancelShapeEdit()
 {
-    qDebug("cacel");
 	//撤销上次增加的顶点
 	if (cocos2dx_view->getCurPolyOper())
 		cocos2dx_view->getCurPolyOper()->popPoint();

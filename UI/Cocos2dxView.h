@@ -122,7 +122,7 @@ public:
 	bool saveDataToFile(QString filepath);
 private:
 	//获取对象在列表项中的属性数据
-	JsonX* getObjectAttr(std::string type_name);
+	JsonX* getObjectAttr(std::string type_name, std::string filename="");
 	void saveObjectData(JsonX &data, BaseObject *object);
 public:
 

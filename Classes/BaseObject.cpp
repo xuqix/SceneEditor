@@ -17,6 +17,7 @@ bool BaseObject::init()
 {
 	setObjectType(ObjectType::BASE_OBJECT);
 	setIsDrag(true);
+	setFileName("");
 	return true;
 }
 

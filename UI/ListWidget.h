@@ -21,9 +21,9 @@ public:
 	
 	//获取列表项精灵的类型
 	QString getSpriteType() { return this->text(); }
+
 	//精灵属性
 	JsonX	m_attr;
-private:
 	//列表项图片文件信息
 	QFileInfo file_info;
 

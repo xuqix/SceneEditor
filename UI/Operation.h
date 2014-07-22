@@ -2,6 +2,7 @@
 #define _OPERATION_H_
 #include "CommonObject.h"
 #include "PolygonObject.h"
+#include <QtCore/QFileInfo>
 
 //标示操作类型
 enum class OperType
@@ -27,15 +28,16 @@ public:
 	//node:要添加到的层
 	//point:对象的位置
 	//path:图片文件的路径
-	CommonEditOper(std::string _type_name, cocos2d::CCNode *node, cocos2d::CCPoint point, std::string path) :pos(point), layer(node), file_path(path) 
+	CommonEditOper(std::string _type_name, cocos2d::CCNode *node, cocos2d::CCPoint point, QFileInfo _file_info) :pos(point), layer(node), file_info(_file_info) 
 	{ 
 		setOperType(OperType::COMMON_EDIT); 
 		type_name = _type_name;
 	}
 	bool exec()
 	{
-		sprite_object = CommonObject::create(CCSprite::create(file_path.c_str()));
+		sprite_object = CommonObject::create(CCSprite::create(file_info.absoluteFilePath().toLatin1().data()));
 		sprite_object->setTypeName(type_name);
+		sprite_object->setFileName(file_info.fileName().toLatin1().data());
 		sprite_object->setPosition(pos);
 		layer->addChild(sprite_object);
 		
@@ -48,8 +50,8 @@ public:
 		return true;
 	}
 private:
-	std::string  type_name;
-	std::string  file_path;			
+	QFileInfo	file_info;			//文件信息
+	std::string  type_name;			//精灵类型
 	cocos2d::CCNode *layer;			//添加到的层
 	cocos2d::CCPoint pos;			//添加位置
 	CC_SYNTHESIZE_READONLY(CommonObject*, sprite_object, CommonObject);	//操作的精灵对象

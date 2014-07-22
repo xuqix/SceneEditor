@@ -70,22 +70,6 @@ void Cocos2dxView::enterEvent(QEvent *event)
 		attachSpriteToMouse();
 	}
 	qDebug("enter");
-	return;
-	cocos2d::CCScene *scene = CCDirector::sharedDirector()->getRunningScene();
-	
-	if (scene)
-	{
-		QRect r = this->geometry();
-		m_mouseSprite = cocos2d::CCSprite::create("CloseNormal.png");
-		QPoint	pos = mapFromGlobal(QCursor::pos());
-		m_mouseSprite->setPosition(ccp(pos.rx(), r.height() - pos.ry()));
-		scene->addChild(m_mouseSprite);
-	
-		m_mouseTimer.setParent(this);
-		connect(&m_mouseTimer, SIGNAL(timeout()), this, SLOT(mouseMoveInView()));
-		
-		m_mouseTimer.start(20);
-	}
 }
 
 void Cocos2dxView::attachSpriteToMouse()
@@ -104,7 +88,6 @@ void Cocos2dxView::attachSpriteToMouse()
 		}
 		QPoint	pos = mapFromGlobal(QCursor::pos());
 		m_mouseSprite->setPosition(ccp(pos.rx(), r.height() - pos.ry()));	//qt的ui y轴坐标转换为opengl的y轴坐标
-//		CCLOG("add");
 
 		m_mouseTimer.setParent(this);
 		connect(&m_mouseTimer, SIGNAL(timeout()), this, SLOT(mouseMoveInView()));
@@ -122,7 +105,6 @@ void Cocos2dxView::leaveEvent(QEvent *event)
 	{
 		if (m_mouseSprite)
 		{
-//			CCLOG("remove");
 			m_mouseSprite->removeFromParent();
 			m_mouseSprite = NULL;
 		}
@@ -131,15 +113,11 @@ void Cocos2dxView::leaveEvent(QEvent *event)
 
 void Cocos2dxView::mouseMoveInView()
 {
-	//QRect r = this->geometry();
-	//QPoint	pos = mapFromGlobal(QCursor::pos());
-	//m_mouseSprite->setPosition(ccp(pos.rx(), r.height() - pos.ry()));
 	m_mouseSprite->setPosition(convertToOpenglPoint(QCursor::pos()));
 }
 
 void Cocos2dxView::mousePressEvent(QMouseEvent *event) 
 {
-	CCLOG("press");
 	if (event->button() == Qt::LeftButton)
 	{
 		if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode)
@@ -158,21 +136,10 @@ void Cocos2dxView::mousePressEvent(QMouseEvent *event)
 			}
 		}
 	}
-	return;
-
-//	CCLOG("begin");
-	QPointF	pos = event->localPos();
-//	CCLOG("%lf %lf", pos.rx(), pos.ry());
-	//组装windows消息
-	UINT message  = WM_LBUTTONDOWN;
-	WPARAM wparam = MK_LBUTTON;
-	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
-	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 
 void Cocos2dxView::mouseMoveEvent(QMouseEvent *event) 
 {
-//	CCLOG("move");
 	if (event->buttons() & Qt::LeftButton)
 	{
 		if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode)
@@ -191,21 +158,10 @@ void Cocos2dxView::mouseMoveEvent(QMouseEvent *event)
 			}
 		}
 	}
-	return;
-
-//	CCLOG("move");
-	QPointF	pos = event->localPos();
-//	CCLOG("qt %lf %lf", pos.rx(), pos.ry());
-	//组装windows消息
-	UINT  message = WM_MOUSEMOVE;
-	WPARAM wparam = MK_LBUTTON;
-	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
-	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 
 void Cocos2dxView::mouseReleaseEvent(QMouseEvent *event) 
 {
-	CCLOG("release");
 	if (event->button() == Qt::LeftButton)
 	{
 		if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode)
@@ -224,16 +180,6 @@ void Cocos2dxView::mouseReleaseEvent(QMouseEvent *event)
 			}
 		}
 	}
-	return;
-
-//	CCLOG("end");
-	QPointF	pos = event->localPos();
-	//CCLOG("%lf %lf", pos.rx(), pos.ry());
-	//组装windows消息
-	UINT message  = WM_LBUTTONUP;
-	WPARAM wparam = MK_LBUTTON;
-	LPARAM lparam = MAKELPARAM(pos.rx(), pos.ry());
-	CCEGLView::sharedOpenGLView()->WindowProc(message, wparam, lparam);
 }
 
 void Cocos2dxView::setBackground(QString filename)
@@ -341,11 +287,8 @@ void Cocos2dxView::mouseReleaseInCommonEdit(QMouseEvent *event)
 	std::string tpname = std::string(item->text().toLatin1().data());
 	std::string filename = std::string(item->getAbsoluteFilePath().toLatin1().data());
 	OperationManageX->exec(new CommonEditOper(tpname, scene->getObjectLayer(), 
-									convertToOpenglPoint(QCursor::pos()), filename));
+									convertToOpenglPoint(QCursor::pos()), item->file_info));
 
-	//CommonObject *object = CommonObject::create(CCSprite::create(item->getAbsoluteFilePath().toLatin1().data()));
-	//object->setPosition(convertToOpenglPoint(QCursor::pos()));
-	//scene->addChild(object);
 }
 
 void Cocos2dxView::stopAllBlink()
@@ -453,13 +396,16 @@ void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
 	rapidjson::Value &arr = data[type_name];
 	if (type == ObjectType::COMMON_OBJECT)
 	{
-		if (!getObjectAttr(type_name)) return;
+		if (!getObjectAttr(type_name, object->getFileName())) return;
 
 		rapidjson::StringBuffer buf;
 		rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
-		getObjectAttr(type_name)->getDocument().Accept(writer);
+		getObjectAttr(type_name, object->getFileName())->getDocument().Accept(writer);
 		rapidjson::Document attr(&data.getAllocator());
 		attr.Parse<0>(buf.GetString());
+
+		rapidjson::Value v(object->getFileName().c_str(), data.getAllocator());
+		attr.AddMember("filename", v, data.getAllocator());
 
 		arr.PushBack((rapidjson::Value&)attr, data.getAllocator());
 	}
@@ -520,11 +466,19 @@ bool Cocos2dxView::saveDataToFile(QString filepath)
 	return true;
 }
 
-JsonX* Cocos2dxView::getObjectAttr(std::string type_name)
+JsonX* Cocos2dxView::getObjectAttr(std::string type_name, std::string filename)
 {
+	//由于支持相同的精灵类型，这里需要用具体的精灵文件名来定位指定的属性结构
 	QList<QListWidgetItem *> res = m_listwidget->findItems(type_name.c_str(),Qt::MatchCaseSensitive);
 	if (res.length() <= 0) return NULL;
-	ListWidgetItem *item = (ListWidgetItem*)res.at(0);
-	return &(item->m_attr);
+	for (QListWidgetItem *iter : res)
+	{
+		ListWidgetItem *item = (ListWidgetItem*)iter;//res.at(0);
+
+		std::string str = std::string(item->getFileName().toLatin1().data());
+		if (str == filename)
+			return &(item->m_attr);
+	}
+	return NULL;
 }
 

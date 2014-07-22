@@ -70,6 +70,9 @@ protected:
 	//类型名，不是指上面的对象类型的类型名
 	CC_SYNTHESIZE(std::string, m_TypeName, TypeName);
     cocos2d::CCSprite *m_sprite;
+
+	//精灵图片的文件名
+	CC_SYNTHESIZE(std::string, m_fileName, FileName);
 };
 
 #endif
