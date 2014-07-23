@@ -1,17 +1,6 @@
 #ifndef _JSONX_H_
 #define _JSONX_H_
 
-//
-//  JsonX.h
-//  test-json
-//
-//  Created by ”Œœ∑≥Ã–Ú on 14-6-6.
-//
-//
-
-#ifndef test_json_JsonX_h
-#define test_json_JsonX_h
-
 #include "cocos2d.h"
 
 #include "rapidjson.h"
@@ -78,7 +67,5 @@ public:
 private:
 	rapidjson::Document doc;
 };
-
-#endif
 
 #endif

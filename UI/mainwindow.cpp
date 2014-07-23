@@ -223,7 +223,7 @@ bool MainWindow::addSprites()
 
 void MainWindow::about()
 {
-    QMessageBox::about(this, "about", "this is a tollage editor by xiaok");
+    QMessageBox::about(this, "about", "this is a scene editor writed by qt5.3 and cocos2dx2.2 ---xiaok");
 }
 
 void MainWindow::rotateChange(double rotate)
@@ -392,6 +392,7 @@ void MainWindow::shapeDrag(bool isDrag)
 {
 	CCArray *children = cocos2dx_view->getEditorScene()->getObjectLayer()->getChildren();
 	CCObject *_obj;
+	//启用(禁用)形状对象的拖拽
 	CCARRAY_FOREACH(children, _obj)
 	{
 		BaseObject *object = (BaseObject*)_obj;

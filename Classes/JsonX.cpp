@@ -1,11 +1,3 @@
-//
-//  JsonX.cpp
-//  test-json
-//
-//  Created by 游戏程序 on 14-6-6.
-//
-//
-
 #include "JsonX.h"
 
 USING_NS_CC;
@@ -28,17 +20,20 @@ JsonX::JsonX(const char *json_str)
 bool JsonX::read(std::string file_name)
 {
 	unsigned long size;
-    unsigned char *data = CCFileUtils::sharedFileUtils()->getFileData(file_name.c_str(), "r", &size);
-    if(data) return false;
+    unsigned char *tmp = CCFileUtils::sharedFileUtils()->getFileData(file_name.c_str(), "r", &size);	//获取的数据不带字符串的0结尾
+	unsigned char *data = new unsigned char[size+1];
+    if(!tmp || !data) return false;
+	memset(data, 0, size + 1);
+	memcpy(data, tmp, size);
     readFromString((char*)data);
+	delete data;
     return true;
 }
 
 bool JsonX::readFromString(const char *json_str)
 {
     doc.Parse<0>(json_str);
-    if(doc.IsNull()) return false;
-    return true;
+	return !doc.IsNull();
 }
 
 bool JsonX::saveToFile(std::string file_name)
