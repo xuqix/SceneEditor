@@ -50,6 +50,8 @@ private slots:
 	//右键菜单
 	//删除选中对象
 	void delChoiceObject();
+	//设置对象属性
+	void setObjectAttribute();
 
 public:
 	void enterEvent(QEvent *event) override;
@@ -122,9 +124,10 @@ public:
 	//保存场景数据到文件
 	bool saveDataToFile(QString filepath);
 private:
+	//保存对象相关的数据
+	void saveObjectData(JsonX &data, BaseObject *object);
 	//获取对象在列表项中的属性数据
 	JsonX* getObjectAttr(std::string type_name, std::string filename="");
-	void saveObjectData(JsonX &data, BaseObject *object);
 public:
 
 	//内置默认分辨率

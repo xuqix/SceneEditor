@@ -1,6 +1,7 @@
 #ifndef _BASEOBJECT_H_
 #define _BASEOBJECT_H_
 #include "cocos2d.h"
+#include "JsonX.h"
 
 //对象类型
 enum class ObjectType
@@ -73,6 +74,12 @@ protected:
 
 	//精灵图片的文件名
 	CC_SYNTHESIZE(std::string, m_fileName, FileName);
+
+	//对于每个对象可以有特定的属性
+public:
+	JsonX& getObjectAttribute() { return m_attr; }
+private:
+	JsonX m_attr;
 };
 
 #endif

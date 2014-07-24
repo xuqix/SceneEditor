@@ -11,6 +11,11 @@ void MainWindow::createTip()
 	ui->rotateSpinBox->setToolTip(QStringLiteral("设置选中对象的旋转角"));
 	ui->scaleSpinBox->setToolTip(QStringLiteral("设置选中对象的缩放比"));
 	ui->typeName->setToolTip(QStringLiteral("设置选中(非精灵)对象的类型名"));
+
+	ui->actionAdd_Sprites->setStatusTip(QStringLiteral("添加新的精灵对象"));
+	ui->actionDelete_Sprite->setStatusTip(QStringLiteral("删除选中的精灵对象列表项"));
+	ui->actionPublic->setStatusTip(QStringLiteral("导出场景的json数据"));
+	ui->actionPublic_As->setStatusTip(QStringLiteral("导出场景的json数据到指定文件"));
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+	ui->toolButtonUndo->setShortcut(QKeySequence::Undo);
 
 	ui->scrollArea->setWidgetResizable(false);
 	ui->scrollArea->takeWidget();
@@ -36,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	pal.setColor(ui->scrollArea->backgroundRole(), Qt::gray);
 	ui->scrollArea->setPalette(pal);
 
-	this->setWindowTitle("MyEditor");
+	this->setWindowTitle("K-EDITOR");
 
 	this->cocos2dx_view = new Cocos2dxView(this);
 	cocos2dx_view->setListWidget(ui->listWidget);
@@ -70,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->typeName, SIGNAL(textChanged(QString)), this, SLOT(changeTypeName(QString)));
 
+#ifdef _DEBUG
 	//test
 	QFileInfo info("H:\\test\\TollgateEditor\\images\\change.png");
 	qDebug("%s %s", info.fileName().toLatin1().data(), info.absoluteFilePath().toLatin1().data());
@@ -79,7 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     item1->setSizeHint(QSize(100,100));
     item1->setText("LOCK");
     ui->listWidget->addItem(item1);
-
+#endif
 
     createActions();
     createMenus();
@@ -149,24 +157,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::newFile()
 {
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+    QMessageBox::warning(this, "tip", QStringLiteral("wait to do →_→"));
 }
 
 void MainWindow::open()
 {
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+    QMessageBox::warning(this, "tip", QStringLiteral("wait to do →_→"));
 }
 
 bool MainWindow::save()
 {
-	delete cocos2dx_view;
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+    QMessageBox::warning(this, "tip", QStringLiteral("wait to do →_→"));
     return true;
 }
 
 bool MainWindow::saveAs()
 {
-    QMessageBox::warning(this, "tip", "wait to do -_-");
+    QMessageBox::warning(this, "tip", QStringLiteral("wait to do →_→"));
     return true;
 }
 
@@ -223,7 +230,9 @@ bool MainWindow::addSprites()
 
 void MainWindow::about()
 {
-    QMessageBox::about(this, "about", "this is a scene editor writed by qt5.3 and cocos2dx2.2 ---xiaok");
+    QMessageBox::about(this, "about", 
+		QStringLiteral("      这是一个用Qt和略加修\n改过的cocos2dx2.2开发的\n简单的场景编辑器。\n\t\t        ---xiaok")
+		);
 }
 
 void MainWindow::rotateChange(double rotate)
@@ -385,7 +394,15 @@ void MainWindow::cancelShapeEdit()
 {
 	//撤销上次增加的顶点
 	if (cocos2dx_view->getCurPolyOper())
+	{
 		cocos2dx_view->getCurPolyOper()->popPoint();
+		//若无点则直接撤销本次操作
+		if (cocos2dx_view->getCurPolyOper()->getPolyObject()->getPolyPoints().empty())
+		{
+			OperationManageX->undo(cocos2dx_view->getCurPolyOper()->getPolyObject());
+			cocos2dx_view->setCurPolyOper(NULL);
+		}
+	}
 }
 
 void MainWindow::shapeDrag(bool isDrag)

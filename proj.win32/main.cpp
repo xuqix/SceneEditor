@@ -30,6 +30,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 USING_NS_CC;
 
+QString qss = "QToolButton:pressed{background-color: #800000;} QToolButton:released{background-color: #008000;}";
+
 int APIENTRY WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR    lpCmdLine,
@@ -45,6 +47,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	app.setApplicationName("SceneEditor by xiaok");//"Application Example");
 	MainWindow mainWin;
 	mainWin.show();
-	return app.exec();
-}
+
+	QFile f("vstyle.qss"); f.open(QFile::ReadOnly);
+	app.setStyleSheet(f.readAll());
+
+	return app.exec(); 
+} 
+
 #endif

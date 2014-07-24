@@ -375,9 +375,15 @@ void Cocos2dxView::contextMenuEvent( QContextMenuEvent * event)
 	if (!m_choicedObj) return;
 
     QMenu *popMenu = new QMenu(this);
+
+	QAction *setting = new QAction(QIcon(":/images/setting.png"), QStringLiteral("设置特定对象属性"), this);
+    connect(setting, SIGNAL(triggered()), this, SLOT(setObjectAttribute()));
+    popMenu->addAction(setting);
+
 	QAction *del = new QAction(QIcon(":/images/delete.png"), QStringLiteral("删除此对象"), this);
 	connect(del, SIGNAL(triggered()), this, SLOT(delChoiceObject()));
 	popMenu->addAction(del);
+
     popMenu->exec(QCursor::pos()); // 菜单出现的位置为当前鼠标的位置
 }
 
@@ -385,6 +391,12 @@ void Cocos2dxView::delChoiceObject()
 {
 	OperationManageX->undo(m_choicedObj);
 	m_choicedObj = NULL;
+}
+
+void Cocos2dxView::setObjectAttribute()
+{
+    Dialog *d = new Dialog(&m_choicedObj->getObjectAttribute(), this);
+    d->exec();
 }
 
 void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
@@ -395,7 +407,8 @@ void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
 
 	if (!data.has(type_name))
 		data.insertArray(type_name);
-	//存储同一类型对象的数组对象
+
+	//存储同一类型对象的通用属性到数组对象
 	rapidjson::Value &arr = data[type_name];
 	if (type == ObjectType::COMMON_OBJECT)
 	{
@@ -443,6 +456,15 @@ void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
 		attr.AddMember("shape", shape_arr, data.getAllocator());
 
 		arr.PushBack((rapidjson::Value&)attr, data.getAllocator());
+	}
+
+	//保存对象的特定属性
+	rapidjson::Value &attr = (rapidjson::Value&)object->getObjectAttribute();
+	for (auto iter = attr.MemberonBegin(); iter != attr.MemberonEnd(); iter++)
+	{
+		rapidjson::Value k(iter->name.GetString(), data.getAllocator());
+		rapidjson::Value v(iter->value.GetString(), data.getAllocator());
+		arr[arr.Size() - 1].AddMember(k, v, data.getAllocator());
 	}
 
 	//保存对象常规属性

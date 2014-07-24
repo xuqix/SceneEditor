@@ -80,9 +80,9 @@ void ListWidget::contextMenuEvent( QContextMenuEvent * event)
     QMenu *popMenu = new QMenu(this);
     if(itemAt(mapFromGlobal(QCursor::pos()))!=NULL)
     {
-        QAction *add = new QAction(QIcon(":/images/add.png"), QStringLiteral("在场景中添加此精灵"), this);
-        connect(add, SIGNAL(triggered()), this, SLOT(addSpriteToScene()));
-        popMenu->addAction(add);
+        //QAction *add = new QAction(QIcon(":/images/add.png"), QStringLiteral("在场景中添加此精灵"), this);
+        //connect(add, SIGNAL(triggered()), this, SLOT(addSpriteToScene()));
+        //popMenu->addAction(add);
 
         QAction *setting = new QAction(QIcon(":/images/setting.png"), QStringLiteral("设置精灵属性"), this);
         connect(setting, SIGNAL(triggered()), this, SLOT(setSpriteAttribute()));
