@@ -27,6 +27,9 @@ public:
 	void mouseMoveEvent(QMouseEvent *e);
 
 private slots:
+	//改变UI皮肤
+	void changeSkin(int id);
+
 	//菜单功能槽
     void newFile();
     void open();

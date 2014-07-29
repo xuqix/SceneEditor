@@ -170,8 +170,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ClInclude Include="..\UI\mainwindow.h" />
     <ClInclude Include="..\UI\OperatioManage.h" />
     <ClInclude Include="..\UI\Operation.h" />
+    <ClInclude Include="..\UI\qstyle.h" />
     <ClInclude Include="..\UI\ui_dialog.h" />
     <ClInclude Include="..\UI\ui_mainwindow.h" />
+    <ClInclude Include="..\UI\vstyle.h" />
     <ClInclude Include="ModeState.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />

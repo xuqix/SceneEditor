@@ -48,8 +48,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	MainWindow mainWin;
 	mainWin.show();
 
-	QFile f("vstyle.qss"); f.open(QFile::ReadOnly);
-	app.setStyleSheet(f.readAll());
+	//app.setStyleSheet(style);
+//	QFile f("vstyle.qss"); f.open(QFile::ReadOnly);
+//	app.setStyleSheet(f.readAll());
 
 	return app.exec(); 
 } 

@@ -1,6 +1,9 @@
-﻿#include "mainwindow.h"
+﻿#include <QtWidgets/QApplication>
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "OperatioManage.h"
+#include "qstyle.h"
+#include "vstyle.h"
 
 void MainWindow::createTip()
 {
@@ -23,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+	ui->comboBoxSkin->insertItem(0, QStringLiteral("土鳖白"));
+	ui->comboBoxSkin->insertItem(1, QStringLiteral("酷炫黑"));
+	ui->comboBoxSkin->insertItem(2, QStringLiteral("高端灰"));
 
 	ui->toolButtonUndo->setShortcut(QKeySequence::Undo);
 
@@ -76,6 +83,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
 
 	connect(ui->typeName, SIGNAL(textChanged(QString)), this, SLOT(changeTypeName(QString)));
+
+	connect(ui->comboBoxSkin, SIGNAL(currentIndexChanged(int)), SLOT(changeSkin(int)));
 
 #ifdef _DEBUG
 	//test
@@ -415,6 +424,17 @@ void MainWindow::shapeDrag(bool isDrag)
 		BaseObject *object = (BaseObject*)_obj;
 		if (object->getObjectType() == ObjectType::CIRCLE_OBJECT || object->getObjectType() == ObjectType::POLYGON_OBJECT)
 			object->setIsDrag(isDrag);
+	}
+}
+
+void MainWindow::changeSkin(int id)
+{
+	QApplication *app = (QApplication *)QApplication::instance();
+	switch (id)
+	{
+	case 0: app->setStyleSheet(""); break;
+	case 1: app->setStyleSheet(qstyle); break;
+	case 2: app->setStyleSheet(vstyle); break;
 	}
 }
 

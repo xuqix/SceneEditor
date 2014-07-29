@@ -473,6 +473,12 @@ void Cocos2dxView::saveObjectData(JsonX &data, BaseObject *object)
 	v.AddMember("x", object->getPositionX(), data.getAllocator());
 	v.AddMember("y", object->getPositionY(), data.getAllocator());
 	arr[arr.Size() - 1].AddMember("position", v, data.getAllocator());
+
+	rapidjson::Value sv(rapidjson::kObjectType);
+	sv.AddMember("width", object->getSprite()->getContentSize().width, data.getAllocator());
+	sv.AddMember("height", object->getSprite()->getContentSize().height, data.getAllocator());
+	arr[arr.Size() - 1].AddMember("size", sv, data.getAllocator());
+
 	arr[arr.Size() - 1].AddMember("rotate", object->getRotation(), data.getAllocator());
 	arr[arr.Size() - 1].AddMember("scale", object->getScale(), data.getAllocator());
 }

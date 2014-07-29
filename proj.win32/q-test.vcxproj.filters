@@ -135,6 +135,12 @@
     <ClInclude Include="..\Classes\JsonX.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\UI\qstyle.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UI\vstyle.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SceneEditor.rc" />
