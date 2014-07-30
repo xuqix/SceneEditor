@@ -36,7 +36,7 @@ bool JsonX::readFromString(const char *json_str)
 	return !doc.IsNull();
 }
 
-bool JsonX::saveToFile(std::string file_name)
+bool JsonX::saveToFile(std::string file_name, bool pretty)
 {
     if(CCFileUtils::sharedFileUtils()->isFileExist(file_name))
         return false;
@@ -48,8 +48,16 @@ bool JsonX::saveToFile(std::string file_name)
         return false;
     
     rapidjson::StringBuffer buf;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> w(buf);
-    doc.Accept(w);
+	if (pretty)
+	{
+		rapidjson::PrettyWriter<rapidjson::StringBuffer> w(buf);
+		doc.Accept(w);
+	}
+	else
+	{
+		rapidjson::Writer<rapidjson::StringBuffer> w(buf);
+		doc.Accept(w);
+	}
     fwrite(buf.GetString(), 1, buf.Size(), fp);
     fclose(fp);
     return true;

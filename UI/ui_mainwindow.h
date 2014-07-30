@@ -100,6 +100,7 @@ public:
     QCheckBox *checkBoxDragShape;
     QComboBox *comboBoxSkin;
     QLabel *label_10;
+    QCheckBox *checkBoxFormatOut;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuE_dit;
@@ -495,6 +496,9 @@ public:
         label_10 = new QLabel(groupBox_4);
         label_10->setObjectName(QStringLiteral("label_10"));
         label_10->setGeometry(QRect(10, 120, 61, 16));
+        checkBoxFormatOut = new QCheckBox(groupBox_4);
+        checkBoxFormatOut->setObjectName(QStringLiteral("checkBoxFormatOut"));
+        checkBoxFormatOut->setGeometry(QRect(10, 150, 111, 16));
 
         verticalLayout_4->addWidget(groupBox_4);
 
@@ -659,6 +663,7 @@ public:
         checkBoxDragShape->setText(QApplication::translate("MainWindow", "\345\220\257\347\224\250\345\275\242\347\212\266\346\213\226\346\213\275", 0));
         comboBoxSkin->setCurrentText(QString());
         label_10->setText(QApplication::translate("MainWindow", "\344\270\200\351\224\256\346\215\242\350\202\244:", 0));
+        checkBoxFormatOut->setText(QApplication::translate("MainWindow", "\346\225\260\346\215\256\346\240\274\345\274\217\345\214\226\350\276\223\345\207\272", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "F&ile", 0));
         menuE_dit->setTitle(QApplication::translate("MainWindow", "E&dit", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

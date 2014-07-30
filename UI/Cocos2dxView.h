@@ -121,6 +121,9 @@ public:
 	//当前被选中的对象,用于右键菜单
 	CC_SYNTHESIZE_READONLY(BaseObject*, m_choicedObj, ChoiceObject);
 
+	//是否格式化输出数据
+	CC_SYNTHESIZE(bool, m_isPretty, IsPretty);
+
 	//保存场景数据到文件
 	bool saveDataToFile(QString filepath);
 private:

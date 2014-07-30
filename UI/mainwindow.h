@@ -27,6 +27,9 @@ public:
 	void mouseMoveEvent(QMouseEvent *e);
 
 private slots:
+	//设置输出格式化
+	void setFormatOut(bool pretty);
+
 	//改变UI皮肤
 	void changeSkin(int id);
 

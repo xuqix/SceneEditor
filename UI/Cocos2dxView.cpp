@@ -27,6 +27,7 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	m_curPolyOper = NULL;
 	m_choicedObj = NULL;
 	m_bkFileName = "HelloWorld.png";
+	m_isPretty = true;
 	return;
 }
 
@@ -494,7 +495,7 @@ bool Cocos2dxView::saveDataToFile(QString filepath)
 		saveObjectData(data, object);
 	}
 	data.insert("background_filename", m_bkFileName.c_str());
-	data.saveToFile(filepath.toLatin1().data());
+	data.saveToFile(filepath.toLatin1().data(), getIsPretty());
 	return true;
 }
 

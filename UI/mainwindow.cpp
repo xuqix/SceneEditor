@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->checkBoxGrid, SIGNAL(clicked(bool)),this, SLOT(showGrid(bool)));
     connect(ui->spinBoxGridNum, SIGNAL(valueChanged(int)), this, SLOT(gridNumChange(int)));
 	connect(ui->checkBoxDragShape, SIGNAL(clicked(bool)), this, SLOT(shapeDrag(bool)));
+	connect(ui->checkBoxFormatOut, SIGNAL(clicked(bool)), this, SLOT(setFormatOut(bool)));
 
 	connect(ui->pushButtonComplete, SIGNAL(clicked()), this, SLOT(completeShapeEdit()));
     connect(ui->pushButtonCancel, SIGNAL(clicked()), this, SLOT(cancelShapeEdit()));
@@ -85,6 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->typeName, SIGNAL(textChanged(QString)), this, SLOT(changeTypeName(QString)));
 
 	connect(ui->comboBoxSkin, SIGNAL(currentIndexChanged(int)), SLOT(changeSkin(int)));
+
+	ui->checkBoxFormatOut->clicked(true);
 
 #ifdef _DEBUG
 	//test
@@ -436,5 +439,11 @@ void MainWindow::changeSkin(int id)
 	case 1: app->setStyleSheet(qstyle); break;
 	case 2: app->setStyleSheet(vstyle); break;
 	}
+}
+
+void MainWindow::setFormatOut(bool pretty)
+{
+	ui->checkBoxFormatOut->setChecked(pretty);
+	cocos2dx_view->setIsPretty(pretty);
 }
 

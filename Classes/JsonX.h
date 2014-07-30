@@ -28,7 +28,7 @@ public:
 	bool readFromString(const char * json_str);
 
 	//json数据存储为文件
-	bool saveToFile(std::string file_name);
+	bool saveToFile(std::string file_name, bool pretty = true);
 
 	//插入键值对
 	Value& insert(const char *key, Value &value);
