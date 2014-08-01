@@ -19,6 +19,8 @@ void MainWindow::createTip()
 	ui->actionDelete_Sprite->setStatusTip(QStringLiteral("删除选中的精灵对象列表项"));
 	ui->actionPublic->setStatusTip(QStringLiteral("导出场景的json数据"));
 	ui->actionPublic_As->setStatusTip(QStringLiteral("导出场景的json数据到指定文件"));
+
+	ui->toolButtonChoice->setStatusTip(QStringLiteral("对场景中选中的精灵或对象进行拖拽、调整等操作(W、A、S、D键可进行精灵微调)"));
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -447,3 +449,16 @@ void MainWindow::setFormatOut(bool pretty)
 	cocos2dx_view->setIsPretty(pretty);
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+	if (ModeStateX->getPrimaryMode() == ModeState::EditMode && ModeStateX->getSubMode() == ModeState::ChoiceEdit)
+	{
+		switch (((QKeyEvent*)event)->key())
+		{
+		case Qt::Key_A:ui->posxSpinBox->setValue(ui->posxSpinBox->value() - 1); break;
+		case Qt::Key_D:ui->posxSpinBox->setValue(ui->posxSpinBox->value() + 1); break;
+		case Qt::Key_S:ui->posySpinBox->setValue(ui->posySpinBox->value() - 1); break;
+		case Qt::Key_W:ui->posySpinBox->setValue(ui->posySpinBox->value() + 1); break;
+		}
+	}
+}

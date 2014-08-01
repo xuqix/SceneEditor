@@ -26,6 +26,9 @@ public:
 
 	void mouseMoveEvent(QMouseEvent *e);
 
+	//事件过滤
+	void keyPressEvent(QKeyEvent *event);
+
 private slots:
 	//设置输出格式化
 	void setFormatOut(bool pretty);
