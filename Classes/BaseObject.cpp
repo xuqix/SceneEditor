@@ -1,4 +1,5 @@
 #include "BaseObject.h"
+#include <QtWidgets/QMessageBox>
 
 USING_NS_CC;
 BaseObject::BaseObject(CCSprite *sprite)
