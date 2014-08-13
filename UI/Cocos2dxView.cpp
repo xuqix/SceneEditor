@@ -28,6 +28,12 @@ Cocos2dxView::Cocos2dxView(QWidget *parent) : QWidget(parent)
 	m_choicedObj = NULL;
 	m_bkFileName = "HelloWorld.png";
 	m_isPretty = true;
+	m_isInView = false;
+
+	QTimer *time = new QTimer(this);
+	connect(time, SIGNAL(timeout()), this, SLOT(mouseMovePosition()));
+	time->start();
+
 	return;
 }
 
@@ -65,6 +71,7 @@ void Cocos2dxView::renderCocos2dx()
 
 void Cocos2dxView::enterEvent(QEvent *event)
 {
+	m_isInView = true;
 	//ä¯ÀÀÄ£Ê½ÏÂºöÂÔ
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode)	return;
 	if ((ModeStateX->getPrimaryMode() == ModeState::EditMode) && (ModeStateX->getSubMode() == ModeState::CommonEdit))
@@ -100,6 +107,7 @@ void Cocos2dxView::attachSpriteToMouse()
 
 void Cocos2dxView::leaveEvent(QEvent *event)
 {
+	m_isInView = false;
 	if (ModeStateX->getPrimaryMode() == ModeState::BrowseMode)	return;
 	qDebug("leave");
 	m_mouseTimer.stop();
@@ -116,6 +124,16 @@ void Cocos2dxView::leaveEvent(QEvent *event)
 void Cocos2dxView::mouseMoveInView()
 {
 	m_mouseSprite->setPosition(convertToOpenglPoint(QCursor::pos()));
+}
+
+void Cocos2dxView::mouseMovePosition()
+{
+	if (m_isInView)
+	{
+		cocos2d::CCPoint p = convertToOpenglPoint(QCursor::pos());
+		((MainWindow*)(this->parent()->parent()->parent()->parent()))->ui->lineEditPosition->setText(
+			QString().sprintf("x:%.0f,y:%.0f", p.x, p.y));
+	}
 }
 
 void Cocos2dxView::mousePressEvent(QMouseEvent *event) 

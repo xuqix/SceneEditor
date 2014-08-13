@@ -46,6 +46,9 @@ private slots:
 
 	//设置鼠标上的精灵位置
 	void mouseMoveInView();
+	//显示鼠标坐标定时器
+	void mouseMovePosition();
+	bool m_isInView;
 
 	//右键菜单
 	//删除选中对象

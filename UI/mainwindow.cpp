@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	ui->lineEditPosition->setAlignment(Qt::AlignCenter);
+	ui->lineEditPosition->setText(QString().sprintf("x:%f,y:%f", 0, 0));
+
 	ui->comboBoxSkin->insertItem(0, QStringLiteral("土鳖白"));
 	ui->comboBoxSkin->insertItem(1, QStringLiteral("酷炫黑"));
 	ui->comboBoxSkin->insertItem(2, QStringLiteral("高端灰"));

@@ -93,6 +93,7 @@ public:
     QSpinBox *posxSpinBox;
     QLabel *label_8;
     QLabel *label_9;
+    QLineEdit *lineEditPosition;
     QGroupBox *groupBox_4;
     QCheckBox *checkBoxGrid;
     QLabel *label_6;
@@ -467,6 +468,13 @@ public:
         label_9->setObjectName(QStringLiteral("label_9"));
 
         gridLayout->addWidget(label_9, 2, 0, 1, 1);
+
+        lineEditPosition = new QLineEdit(groupBox);
+        lineEditPosition->setObjectName(QStringLiteral("lineEditPosition"));
+        lineEditPosition->setEnabled(false);
+        lineEditPosition->setReadOnly(false);
+
+        gridLayout->addWidget(lineEditPosition, 7, 0, 1, 2);
 
 
         verticalLayout_4->addWidget(groupBox);
