@@ -80,12 +80,27 @@ BaseObject* EditorScene::getObjectInPoint(cocos2d::CCPoint pos)
 {
 	CCArray *object_array = getObjectLayer()->getChildren();
 	CCObject *child;
+	//优先判断普通对象
 	CCARRAY_FOREACH(object_array, child)
 	{
 		BaseObject *obj = (BaseObject*)child;
 		assert(obj);
-		if (obj->containsTouchLocation(pos))
-			return obj;
+		if (obj->getObjectType() == ObjectType::COMMON_OBJECT)
+		{
+			if (obj->containsTouchLocation(pos))
+				return obj;
+		}
+	}
+	//判断形状对象
+	CCARRAY_FOREACH(object_array, child)
+	{
+		BaseObject *obj = (BaseObject*)child;
+		assert(obj);
+		if (obj->getObjectType() != ObjectType::COMMON_OBJECT)
+		{
+			if (obj->containsTouchLocation(pos))
+				return obj;
+		}
 	}
 	return NULL;
 }
