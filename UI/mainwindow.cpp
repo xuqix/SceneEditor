@@ -4,6 +4,7 @@
 #include "OperatioManage.h"
 #include "qstyle.h"
 #include "vstyle.h"
+#include <QtGui/QWindow>
 
 void MainWindow::createTip()
 {
